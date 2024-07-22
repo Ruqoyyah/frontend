@@ -31,3 +31,36 @@ body {
     text-wrap: balance;
   }
 }
+
+.home-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
+    url("/img/back.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+.pageLinknew {
+  background: #000000;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 300;
+  color: #edbf85;
+  font-size: 12px;
+  font-weight: 900;
+  width: fit-content;
+  height: fit-content;
+  transition: all ease-in-out 1s;
+}
+.pageLinknew:hover {
+  background-color: #edbf85;
+  color: #000000; /* Lighter grey on hover */
+}
+
+.pageLinknew.active {
+  background-color: #69707d20; /* Blue background for the active page */
+  color: black; /* White text color for better contrast */
+  /* border-color: #299d91; Darker blue border to match */
+}
