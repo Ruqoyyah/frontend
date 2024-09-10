@@ -16,14 +16,10 @@
   }
 }
 
-body {
+.body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: url("/img/mainBg.jpg");
+  background-size: cover;
 }
 
 @layer utilities {
@@ -32,6 +28,10 @@ body {
   }
 }
 
+.sideImg {
+  background: url("/img/sideBg.png") center center no-repeat;
+  background-size: cover;
+}
 .home-bg {
   background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
     url("/img/back.jpg");
@@ -40,6 +40,9 @@ body {
   height: 100vh;
   position: relative;
   width: 100%;
+}
+.btnBack {
+  background: url("/img/buttonback.png");
 }
 .pageLinknew {
   background: #000000;

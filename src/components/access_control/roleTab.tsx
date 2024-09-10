@@ -8,10 +8,12 @@ import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { MdAdd, MdAddCircleOutline } from "react-icons/md";
 import RoleCard from "./roleCard";
+import SearchBar from "../utils/SearchBar";
+import RoleTable from "../utils/roleTable";
 // import RoleCard from "./RoleCard";
 
-export default function RoleTab() {
-  const [show, setShow] = useState("all");
+export default function RoleTab({ roles }: { roles: IRole[] }) {
+  const [searchItem, setSearchItem] = useState("");
   //   const [roles, setRoles] = useState<IRole[]>([]);
 
   //   const getRoles = async () => {
@@ -25,133 +27,34 @@ export default function RoleTab() {
   //   };
   const router = useRouter();
 
-  const roles: IRole[] = [
-    {
-      id: 1,
-      name: "Admin",
-      description: "This role supercedes all roles",
-      is_active: true,
-      created_by: "Quadri",
-      last_updated_by: "",
-      created_at: "",
-      updated_at: "",
-    },
-    {
-      id: 2,
-      name: "Designer",
-      description: "This role provides services to the customer",
-      is_active: true,
-      created_by: "Quadri",
-      last_updated_by: "",
-      created_at: "",
-      updated_at: "",
-    },
-    {
-      id: 3,
-      name: "Customer",
-      description: "This role is an end user",
-      is_active: true,
-      created_by: "Quadri",
-      last_updated_by: "",
-      created_at: "",
-      updated_at: "",
-    },
-  ];
-
   useEffect(() => {
     // getRoles();
   }, []);
 
   return (
     <>
-      <div className="bg-white  p-5 flex items-center justify-between rounded-xl border-[1px] border-[#ccc] ">
-        <div className=" flex items-center  gap-4 w-[70%]">
-          <div className="w-full border-dashed border-[#ccc] border-[1px] rounded-lg p-5 ">
-            <p className="font-bold xl:text-[20px]">{roles?.length}</p>
-            <p className="font-bold text-sm xl:text-[14px] text-[#B5B5C3]">
-              Total roles
-            </p>
+      <div className="bg-white  p-5 flex flex-col gap-4 rounded-xl border-[1px] border-[#ccc] ">
+        <div className="flex gap-2 items-center">
+          <p className="text-sm text-black">Roles</p>
+          <div className="w-fit h-fit flex justify-center items-center p-2 rounded-full text-[#026AA2] bg-[#F0F9FF]">
+            <p className="text-sm">{roles.length}</p>
           </div>
-          <div className="w-full border-dashed border-[#ccc] border-[1px] rounded-lg p-5 ">
-            <p className="font-bold xl:text-[20px]">{roles?.length}</p>
-            <p className="font-bold text-sm xl:text-[14px] text-[#B5B5C3]">
-              Active Now
-            </p>
+        </div>
+        <div className="flex items-center w-full justify-between">
+          <div className="w-[30%]">
+            <SearchBar searchTerm={searchItem} setSearchTerm={setSearchItem} />
           </div>
-          {/* <div className="w-full border-dashed border-[#ccc] border-[1px] rounded-lg p-5 ">
-            <p className="font-bold xl:text-[20px]">39</p>
-            <p className="font-bold text-sm xl:text-[14px] text-[#B5B5C3]">
-              New Users
-            </p>
-          </div> */}
+          <div className="flex items-center gap-2">
+            {/* Add Filter */}
+
+            <button className="w-fit px-5 py-2 bg-[#5E604D] rounded-3xl text-white flex items-center gap-2">
+              <MdAdd />
+              New Role
+            </button>
+          </div>
         </div>
-        <div className="w-[30%] flex justify-end">
-          <button
-            className="bg-black p-3 text-secondary gap-2 rounded-lg flex items-center"
-            onClick={() => router.push("/admin/create-role")}
-          >
-            <MdAdd />
-            Add New Role
-          </button>
-        </div>
+        <RoleTable currentItems={roles} />
       </div>
-      <div className="mt-5 p-[32px] bg-white rounded-[20px] flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <p className="font-semibold">All Roles</p>
-          {/* <Badge borderRadius={12}>100 users</Badge> */}
-        </div>
-        <div className="flex items-center gap-4">
-          <p
-            className={
-              show === "all"
-                ? "text-black font-semibold underline underline-offset-8 cursor-pointer "
-                : " cursor-pointer text-[#00000040] font-semibold "
-            }
-            onClick={() => {
-              setShow("all");
-            }}
-          >
-            All Roles
-          </p>
-          {/* <p
-            className={
-              show === "default"
-                ? "text-black font-semibold underline underline-offset-8 cursor-pointer "
-                : " cursor-pointer text-[#00000040] font-semibold "
-            }
-            onClick={() => {
-              setShow("default");
-            }}
-          >
-            Default Roles
-          </p>
-          <p
-            className={
-              show === "custom"
-                ? "text-black font-semibold underline underline-offset-8 cursor-pointer "
-                : " cursor-pointer text-[#00000040] font-semibold "
-            }
-            onClick={() => {
-              setShow("custom");
-            }}
-          >
-            Custom Roles
-          </p> */}
-        </div>
-      </div>
-      {show === "all" && (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-5">
-            {roles ? (
-              roles.map((item, index) => <RoleCard role={item} key={index} />)
-            ) : (
-              <div className=" w-full h-full flex justify-center items-center">
-                <Spinner />
-              </div>
-            )}
-          </div>
-        </>
-      )}
     </>
   );
 }

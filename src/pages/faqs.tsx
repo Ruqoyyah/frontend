@@ -1,5 +1,6 @@
 import FaqCard from "@/components/faqCards";
 import Layout from "@/components/layout";
+import ClientNavbar from "@/components/layout/navbar";
 import CreatFaqModal from "@/components/modals/createFaqModal";
 import { IFaq } from "@/models/index.model";
 import { useDisclosure } from "@chakra-ui/react";
@@ -11,20 +12,23 @@ export default function Faqs() {
 
   return (
     <Layout>
-      <div className="mt-5 flex p-5 w-full items-center justify-end">
-        <button
-          className="w-fit h-fit px-5 py-2 rounded-2xl transition ease-in-out duration-700 hover:scale-75 bg-black text-secondary flex items-center gap-2 font-semibold"
-          onClick={onOpen}
-        >
-          {" "}
-          <MdAdd />
-          Add New
-        </button>
-      </div>
-      <div className="grid md:grid-cols-3  lg:grid-cols-4  my-8 gap-3">
-        {faqs?.map((item, index) => (
-          <FaqCard faq={item} key={index} />
-        ))}
+      <ClientNavbar page="FAQs" />
+      <div className="p-5">
+        <div className=" flex  w-full items-center justify-end">
+          <button
+            className="w-fit px-5 py-2 bg-[#5E604D] rounded-3xl text-white flex items-center gap-2"
+            onClick={onOpen}
+          >
+            {" "}
+            <MdAdd />
+            Add New
+          </button>
+        </div>
+        <div className="grid md:grid-cols-3  lg:grid-cols-4  my-8 gap-3">
+          {faqs?.map((item, index) => (
+            <FaqCard faq={item} key={index} />
+          ))}
+        </div>
       </div>
       <CreatFaqModal isOpen={isOpen} onClose={onClose} />
     </Layout>

@@ -51,7 +51,7 @@ export default function CreatFaqModal({ isOpen, onClose }: modalProps) {
     <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader color={"black"}>Edit Plan</ModalHeader>
+        <ModalHeader color={"black"}>Create FAQ</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <div className="flex flex-col items-center w-full gap-3">
@@ -96,7 +96,7 @@ export default function CreatFaqModal({ isOpen, onClose }: modalProps) {
         <ModalFooter>
           <div className="w-full flex flex-col lg:flex-row lg:justify-end items-center gap-2 items-center">
             <button
-              className="py-2 w-full bg-black text-white font-semibold rounded-lg"
+              className="w-fit px-5 py-2 bg-[#5E604D] rounded-3xl text-white flex items-center gap-2"
               onClick={() => {
                 // createFaq();
                 onClose();

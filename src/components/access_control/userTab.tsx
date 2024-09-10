@@ -9,10 +9,12 @@ import UserSummaryCard from "./userSummaryCard";
 import { IUser } from "@/models/index.model";
 import UserTable from "../utils/userTable";
 import CreateUserModal from "../modals/createUserModal";
+import SearchBar from "../utils/SearchBar";
 // import { IUser } from "@/models/admin.models";
 
 export default function UsersTab() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [searchItem, setSearchItem] = useState<string>("");
   //   const [users, setUsers] = useState<IUser[]>([]);
 
   //   const getAllUsers = async () => {
@@ -99,25 +101,27 @@ export default function UsersTab() {
   }, []);
 
   return (
-    <div className="w-full ">
-      <div className="mt-5 flex justify-between w-full">
-        <div className="w-[30%]">
-          <UserSummaryCard users={users} />
+    <div className="bg-white  p-5 flex flex-col gap-4 rounded-xl border-[1px] border-[#ccc] ">
+      <div className="flex gap-2 items-center">
+        <p className="text-sm text-black">Users</p>
+        <div className="w-fit h-fit flex justify-center items-center p-2 rounded-full text-[#026AA2] bg-[#F0F9FF]">
+          <p className="text-sm">{users.length}</p>
         </div>
-        <div className="">
-          <button
-            className="w-fit h-fit px-5 py-2 rounded-xl bg-primary text-active flex items-center gap-2 font-semibold"
-            onClick={onOpen}
-          >
-            {" "}
+      </div>
+      <div className="flex items-center w-full justify-between">
+        <div className="w-[30%]">
+          <SearchBar searchTerm={searchItem} setSearchTerm={setSearchItem} />
+        </div>
+        <div className="flex items-center gap-2">
+          {/* Add Filter */}
+
+          <button className="w-fit px-5 py-2 bg-[#5E604D] rounded-3xl text-white flex items-center gap-2">
             <MdAdd />
-            Add New User
+            New User
           </button>
         </div>
       </div>
-      <div className="my-8">
-        <UserTable currentItems={users} />
-      </div>
+      <UserTable currentItems={users} />
       <CreateUserModal isOpen={isOpen} onClose={onClose} />
     </div>
   );

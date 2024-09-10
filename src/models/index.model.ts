@@ -60,7 +60,7 @@ export type IUser = {
   last_updated_by: any;
   created_at: string;
   updated_at: string;
-  role: IRole;
+  role?: IRole;
 };
 export type IComplaint = {
   id: number;
@@ -145,6 +145,7 @@ export type IRole = {
   last_updated_by: any;
   created_at: string;
   updated_at: any;
+  users?: IUser[];
 };
 export type IRoleDetails = {
   id: number;

@@ -9,7 +9,7 @@ export default function Layout({ children }: childrenProps) {
       <div className="p-2 h-full">
         <Sidebar />
       </div>
-      <div className="">{children}</div>
+      <div className="bg-[#FAFAFA]">{children}</div>
     </div>
   );
 }
