@@ -27,6 +27,11 @@
     text-wrap: balance;
   }
 }
+.container {
+  width: 80%;
+  margin: auto;
+  height: 100%;
+}
 
 .sideImg {
   background: url("/img/sideBg.png") center center no-repeat;

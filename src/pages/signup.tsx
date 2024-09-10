@@ -14,7 +14,7 @@ import ClientNavbar from "@/components/layout/navbar";
 import FancyButton from "@/components/utils/fancyButton";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Login() {
+export default function Signup() {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -90,10 +90,10 @@ export default function Login() {
   return (
     <div className="body h-screen">
       <ClientNavbar page="emptu" />
-      <div className="h-[80%] flex items-center justify-center">
+      <div className="h-[89%] flex items-center justify-center">
         <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
           <div className="flex flex-col items-center gap-2 w-full">
-            <p className="leading-24 text-xl ">Login</p>
+            <p className="leading-24 text-xl ">Sign Up</p>
             <p className="text-[#D6D6D670]">
               To get started, you need to sign up here.
             </p>
@@ -101,18 +101,35 @@ export default function Login() {
 
           <div className="flex flex-col items-center gap-5 w-full">
             <div className="flex flex-col gap-2 w-full">
+              <p className="leading-24  text-sm font-[400]">Firstname</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your firstname"
+                value={email}
+                border={"1px solid #cccccc50"}
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="leading-24  text-sm font-[400]">Lastname</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your lastname"
+                value={email}
+                border={"1px solid #cccccc50"}
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <p className="leading-24  text-sm font-[400]">Email</p>
               <Input
                 size={"lg"}
-                bg={"transparent"}
-                border={"1px solid #cccccc50"}
                 placeholder="Enter your email"
                 value={email}
+                border={"1px solid #cccccc50"}
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Password</p>
-              <div className="w-full flex items-center gap-2 border-[1px] pr-2 border-[#cccccc50] rounded-lg">
+              <div className="w-full flex items-center gap-2 border-[1px] pr-2  border-[#cccccc50] rounded-lg">
                 <Input
                   type={showPassword ? "text" : "password"}
                   //   className="bg-[#F8F8F8]"
@@ -139,9 +156,16 @@ export default function Login() {
                 )}
               </div>
             </div>
-
+            {/* <div className="flex flex-col gap-1">
+            <p
+              className="leading-24 cursor-pointer text-secondary text-right  text-[14px] font-semibold"
+              onClick={onForgotOpen}
+            >
+              Forgot Password?
+            </p>
+          </div> */}
             <FancyButton
-              text="Login"
+              text="Create Account"
               // disabled={disabled}
               onClick={() => {
                 // login();

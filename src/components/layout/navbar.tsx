@@ -63,14 +63,31 @@ export default function ClientNavbar({ page }: navbarProps) {
   return (
     <div className="w-full sticky top-0 flex border-b-[1px] border-[#ffffff60] items-center justify-between z-10 px-5 py-3 bg-transparent">
       <div className="flex flex-col gap-1">
-        <p className="text-xl text-white  font-semibold">Sporter+</p>
+        <p
+          className="text-xl text-white cursor-pointer font-semibold"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          Sporter+
+        </p>
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="bg-greybg px-5 py-2 rounded-lg border-[#fafafa] border w-fit h-fit text-white">
+        <button
+          className="bg-greybg px-5 py-2 rounded-lg border-[#fafafa] border w-fit h-fit text-white"
+          onClick={() => {
+            router.push("/login");
+          }}
+        >
           Login
         </button>
-        <FancyButton text="Sign Up" onClick={() => {}} />
+        <FancyButton
+          text="Sign Up"
+          onClick={() => {
+            router.push("/signup");
+          }}
+        />
       </div>
     </div>
   );
