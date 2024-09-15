@@ -62,6 +62,12 @@ export type IUser = {
   updated_at: string;
   role?: IRole;
 };
+export type IMockUser = {
+  name: string;
+  grade: string;
+  sport: string;
+  email: string;
+};
 export type IComplaint = {
   id: number;
   name: string;

@@ -72,3 +72,12 @@
   color: black; /* White text color for better contrast */
   /* border-color: #299d91; Darker blue border to match */
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+.imagebg1 {
+  background-image: url("/img/student.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}

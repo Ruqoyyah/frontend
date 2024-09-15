@@ -282,7 +282,7 @@ export default function UserDetails() {
               </div>
             </div>
 
-            <UserTable currentItems={users} />
+            {/* <UserTable currentItems={users} /> */}
           </div>
         </div>
       </div>
