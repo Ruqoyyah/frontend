@@ -121,7 +121,7 @@ export default function UsersTab() {
           </button>
         </div>
       </div>
-      <UserTable currentItems={users} />
+      {/* <UserTable currentItems={users} /> */}
       <CreateUserModal isOpen={isOpen} onClose={onClose} />
     </div>
   );

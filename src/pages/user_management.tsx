@@ -142,7 +142,7 @@ export default function UserManagement() {
 
           <TabPanels>
             <TabPanel>
-              <UserTable currentItems={current} />
+              {/* <UserTable currentItems={current} /> */}
               <div className="flex my-5 justify-between items-center   w-full">
                 <div className="flex items-center gap-2">
                   <p className="text-sm">
