@@ -1,47 +1,42 @@
 import Layout from "@/components/layout";
+import AddSportModal from "@/components/modals/addSport";
+import GenSportTable from "@/components/utils/generalSportsTable";
 import UserTable from "@/components/utils/userTable";
+import { ISport } from "@/models/index.model";
+import AdminServices from "@/services/Admin-services";
+import { useDisclosure, useToast } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 
 export default function Sports() {
-  const students = [
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-  ];
+  const [sports, setSports] = useState<ISport[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
+  const getallSports = async () => {
+    try {
+      const res = await AdminServices.getAllSports();
+      if (res.statusCode == "OK") {
+        setSports(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  useEffect(() => {
+    getallSports();
+  }, []);
   return (
     <Layout>
       <div className="flex h-full flex-col gap-5 p-5">
@@ -51,7 +46,12 @@ export default function Sports() {
               <p className="text-2xl md:w-[30%] font-semibold leading-8 text-white">
                 Manage student sports activities effortlessly.
               </p>
-              <button className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold">
+              <button
+                className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold"
+                onClick={() => {
+                  onOpen();
+                }}
+              >
                 <MdAdd />
                 Add Sport
               </button>
@@ -64,7 +64,7 @@ export default function Sports() {
               <div className="flex flex-col gap-2">
                 <p className="text-xl font-semibold text-black">Sport List</p>
                 <p className="text-sm text-[#B5B5C3] font-semibold ">
-                  60 students
+                  {sports.length} sport{sports.length > 1 ? "s" : ""}
                 </p>
               </div>
               <div className="flex items-center gap-2 justify-end">
@@ -79,16 +79,17 @@ export default function Sports() {
                   />
                 </div>
 
-                <button className="w-full h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold">
+                {/* <button className="w-full h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold">
                   <MdAdd />
                   Add Sport
-                </button>
+                </button> */}
                 {/* <button className="w-fit h-fit rounded-lg text-xs text-[#A1A5B7] bg-[#F5F8FA] px-5 py-2 flex items-center gap-2 font-semibold">
                   View all
                 </button> */}
               </div>
             </div>
-            <UserTable currentItems={students} />
+            <GenSportTable currentItems={sports} />
+            <AddSportModal isOpen={isOpen} onClose={onClose} />
           </div>
         </div>
       </div>

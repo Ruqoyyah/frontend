@@ -1,39 +1,49 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import { Input, Spinner, useDisclosure, useToast } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { LoginDto } from "@/models/auth.model";
-// import AuthServices from "@/services/Auth-services/auth.service";
-// import CookieManager from "@/services/cookie-manager/cookie-manager";
-import { useRouter } from "next/router";
-import CookieManager from "@/utils/cookiemanager";
+// import { CreateUserDto, IRole } from "@/models/admin.models";
+// import AdminServices from "@/services/Admin-services/admin.services";
+import { IRole, SignUpDto } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
-import { LoginDto, SignUpDto } from "@/models/index.model";
-import ClientNavbar from "@/components/layout/navbar";
-import FancyButton from "@/components/utils/fancyButton";
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Signup() {
-  const router = useRouter();
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Input,
+  Select,
+  Checkbox,
+  useToast,
+  Textarea,
+  Spinner,
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdArrowRight } from "react-icons/md";
+type modalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+export default function AddStudentModal({ isOpen, onClose }: modalProps) {
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+
   const [loading, setIsloading] = useState<boolean>(false);
+  const [role, setRole] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [disabled, setDisabled] = useState<boolean>(true);
-  const {
-    isOpen: isForgotOpen,
-    onOpen: onForgotOpen,
-    onClose: onForgotClose,
-  } = useDisclosure();
+  const [email, setEmail] = useState<string>("");
+  const [roles, setRoles] = useState<any[]>([{ id: 1, name: "basketball" }]);
+  useEffect(() => {
+    // getRoles();
+  }, []);
   const toast = useToast();
+  const router = useRouter();
   const createUser = async () => {
     if (firstname === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid firstname",
         duration: 2000,
         status: "error",
@@ -42,7 +52,7 @@ export default function Signup() {
     }
     if (lastname === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid lastname",
         duration: 2000,
         status: "error",
@@ -51,7 +61,7 @@ export default function Signup() {
     }
     if (email === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid email address",
         duration: 2000,
         status: "error",
@@ -60,7 +70,7 @@ export default function Signup() {
     }
     if (password === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a password",
         duration: 2000,
         status: "error",
@@ -79,24 +89,13 @@ export default function Signup() {
     try {
       const res = await AdminServices.CreateUser(data);
       if (res.statusCode == "OK") {
-        const data2: LoginDto = {
-          email,
-          password,
-        };
-        const res2 = await AdminServices.login(data2);
-        setIsloading(false);
-        const { jwt, ...rest } = res2.data;
-        localStorage.setItem("token", jwt);
-        CookieManager.setCookie("jwt", jwt, 1);
-        localStorage.setItem("currentUser", JSON.stringify(rest));
-
         toast({
-          title: "Authentication",
-          description: "Sign up Successfull",
+          title: "Create",
+          description: "Student Created",
           duration: 2000,
           status: "success",
         });
-        router.push("/student/dashboard");
+        router.reload();
       } else {
         setIsloading(false);
         console.log(res);
@@ -104,7 +103,7 @@ export default function Signup() {
     } catch (error: any) {
       setIsloading(false);
       toast({
-        title: "Authentication",
+        title: "Create",
         description: `${error.response.data.message}`,
         duration: 2000,
         status: "error",
@@ -112,29 +111,25 @@ export default function Signup() {
       console.log(error, "mav");
     }
   };
-  useEffect(() => {
-    if (email !== "" && password !== "") {
-      setDisabled(false);
-    }
-  }, [email, password]);
-  return (
-    <div className="body h-screen">
-      <ClientNavbar page="emptu" />
-      <div className="h-[89%] flex items-center justify-center">
-        <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
-          <div className="flex flex-col items-center gap-2 w-full">
-            <p className="leading-24 text-xl ">Sign Up</p>
-            <p className="text-[#D6D6D670]">
-              To get started, you need to sign up here.
-            </p>
-          </div>
 
+  return (
+    <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent borderRadius={32}>
+        <ModalHeader>
+          <div className="flex flex-col gap-1 ">
+            <p className="font-semibold text-[#1F2937]">Add a new student</p>
+            <p className="text-sm text-[#424550]"></p>
+          </div>
+        </ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
           <div className="flex flex-col items-center gap-5 w-full">
             <div className="flex flex-col gap-2 w-full">
               <p className="leading-24  text-sm font-[400]">Firstname</p>
               <Input
                 size={"lg"}
-                placeholder="Enter your firstname"
+                placeholder="Enter firstname"
                 value={firstname}
                 border={"1px solid #cccccc50"}
                 type="firstname"
@@ -143,7 +138,7 @@ export default function Signup() {
               <p className="leading-24  text-sm font-[400]">Lastname</p>
               <Input
                 size={"lg"}
-                placeholder="Enter your lastname"
+                placeholder="Enter lastname"
                 value={lastname}
                 border={"1px solid #cccccc50"}
                 type="email"
@@ -152,7 +147,7 @@ export default function Signup() {
               <p className="leading-24  text-sm font-[400]">Email</p>
               <Input
                 size={"lg"}
-                placeholder="Enter your email"
+                placeholder="Enter email"
                 value={email}
                 border={"1px solid #cccccc50"}
                 type="email"
@@ -194,19 +189,34 @@ export default function Signup() {
               Forgot Password?
             </p>
           </div> */}
-            <FancyButton
-              text="Create Account"
-              // disabled={disabled}
-              loading={loading}
-              onClick={() => {
-                createUser();
-              }}
-            />
 
             {/* <SignUpModal isOpen={isOpen} onClose={onClose} /> */}
           </div>
-        </div>
-      </div>
-    </div>
+        </ModalBody>
+
+        <ModalFooter>
+          <div className="w-full flex flex-col lg:flex-row lg:justify-end items-center gap-2 items-center">
+            <button
+              className="py-2 w-full border-[#3E6CF44D] border text-[#082A94] font-semibold rounded-lg"
+              onClick={() => {
+                onClose();
+              }}
+            >
+              {" "}
+              Discard
+            </button>
+            <button
+              className="py-2 w-full bg-[#FF9C50] flex justify-center items-center gap-2 text-white font-semibold rounded-lg"
+              onClick={() => {
+                createUser();
+              }}
+            >
+              {" "}
+              {loading ? <Spinner /> : "Create"}
+            </button>
+          </div>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }

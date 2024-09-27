@@ -14,15 +14,15 @@ import ClientNavbar from "@/components/layout/navbar";
 import FancyButton from "@/components/utils/fancyButton";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Signup() {
+export default function SignupAdmin() {
   const router = useRouter();
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [loading, setIsloading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setIsloading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const {
     isOpen: isForgotOpen,
@@ -77,7 +77,7 @@ export default function Signup() {
       registnumber: "random string",
     };
     try {
-      const res = await AdminServices.CreateUser(data);
+      const res = await AdminServices.CreateAdminUser(data);
       if (res.statusCode == "OK") {
         const data2: LoginDto = {
           email,
@@ -96,7 +96,7 @@ export default function Signup() {
           duration: 2000,
           status: "success",
         });
-        router.push("/student/dashboard");
+        router.push("/admin/dashboard");
       } else {
         setIsloading(false);
         console.log(res);
@@ -123,7 +123,7 @@ export default function Signup() {
       <div className="h-[89%] flex items-center justify-center">
         <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
           <div className="flex flex-col items-center gap-2 w-full">
-            <p className="leading-24 text-xl ">Sign Up</p>
+            <p className="leading-24 text-xl ">Sign Up as Admin</p>
             <p className="text-[#D6D6D670]">
               To get started, you need to sign up here.
             </p>

@@ -27,6 +27,18 @@ export type LoginDto = {
   email: string;
   password: string;
 };
+export type SignUpDto = {
+  firstname: string;
+  lastname: string;
+  username: string;
+  password: string;
+  email: string;
+  registnumber: string;
+};
+export type CreateSport = {
+  sportName: string;
+  sportType: string;
+};
 
 export type CreateAccessPlanDto = {
   title: string;
@@ -54,19 +66,27 @@ export type IUser = {
   firstname: string;
   lastname: string;
   email: string;
-  is_active: boolean;
-  role_id: number;
-  created_by: any;
-  last_updated_by: any;
-  created_at: string;
-  updated_at: string;
-  role?: IRole;
+  registnumber: string;
+  username: string;
+  userType: string;
+  sport: ISport[];
+};
+export type ISport = {
+  id: number;
+  sportName: string;
+  creationDate: string;
+  sportType: string;
 };
 export type IMockUser = {
   name: string;
   grade: string;
   sport: string;
   email: string;
+};
+export type IMockSport = {
+  name: string;
+  num: number;
+  status: "Active" | "Awaiting Approval";
 };
 export type IComplaint = {
   id: number;

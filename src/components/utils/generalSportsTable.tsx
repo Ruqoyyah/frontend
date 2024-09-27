@@ -1,6 +1,6 @@
 // import { IUser } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { IMockUser, IUser } from "@/models/index.model";
+import { IMockSport, IMockUser, ISport, IUser } from "@/models/index.model";
 import {
   Table,
   Thead,
@@ -21,6 +21,7 @@ import {
   useDisclosure,
   Button,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -28,35 +29,48 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
 import GlobalPagination from "./globalPagination";
+import { getFormattedDate } from "./helpers";
+import { MdDelete } from "react-icons/md";
 import AdminServices from "@/services/Admin-services";
 // import GlobalPagination from "../utils/pagination";
 
 type adUserTableProp = {
-  currentItems: IUser[];
+  currentItems: ISport[];
 };
-export default function UserTable({ currentItems }: adUserTableProp) {
+export default function GenSportTable({ currentItems }: adUserTableProp) {
   const router = useRouter();
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
-  const [current, setCurrentItems] = useState<IUser[]>([]);
+  const [current, setCurrentItems] = useState<ISport[]>([]);
   const [selectedId, setSelectedId] = useState<number>(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement | null>(null);
+  const [loading, setIsloading] = useState<boolean>(false);
 
   const toast = useToast();
   const deleteUser = async (id: number) => {
+    setIsloading(true);
     try {
-      const res = await AdminServices.deleteStudent(id);
-      if (res.statusCode == "OK") {
+      const res = await AdminServices.deleteSport(id);
+      if (res.statusCode === "OK") {
+        setIsloading(false);
         toast({
-          title: "Student Management",
+          title: "Sport Management",
           status: "success",
-          description: "Successfully deleted a User",
+          description: "Successfully deleted a sport",
         });
         router.reload();
       }
-    } catch (error) {
+    } catch (error: any) {
+      setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
       console.log(error);
     }
   };
@@ -82,9 +96,8 @@ export default function UserTable({ currentItems }: adUserTableProp) {
           <Thead>
             <Tr>
               <Th>NAME</Th>
-              <Th>EMAIL</Th>
-              <Th>ID</Th>
               <Th>SPORT TYPE</Th>
+              <Th>CREATED DATE</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -113,65 +126,28 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                       </svg>
                     </div>
                     <p className="font-semibold text-[#FF9C50]">
-                      {user?.firstname} {user?.lastname}
+                      {user?.sportName}
                     </p>
                   </div>
                 </Td>
                 <Td>
-                  <p className="font-[500]">{user?.email}</p>
+                  <p className="font-[500]">{user?.sportType}</p>
                 </Td>
                 <Td>
-                  <p className="font-[500]">{user?.id}</p>
+                  {" "}
+                  <p className="font-[500]">
+                    {getFormattedDate(user?.creationDate)}
+                  </p>
                 </Td>
                 <Td>
-                  <div className="flex gap-2 flex-wrap">
-                    {user?.sport.map((item, index) => (
-                      <div
-                        className="w-fit h-fit rounded-full px-2 py-1 text-xs bg-[#F9F5FF] text-[#6941C6]"
-                        key={index}
-                      >
-                        <p>{item.sportName}</p>
-                      </div>
-                    ))}
-                  </div>
-                </Td>
-                <Td>
-                  <div className="w-full flex items-center justify-between">
-                    <BsTrashFill
-                      className="z-10  cursor-pointer"
+                  <div className="flex items-center gap-2">
+                    <MdDelete
                       onClick={() => {
-                        setSelectedId(user?.id);
+                        setSelectedId(user.id);
                         onOpen();
                       }}
-                    />
-                    {/* <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
                       className="cursor-pointer"
-                    >
-                      <g clip-path="url(#clip0_2536_463)">
-                        <path
-                          d="M24.1666 12.4999C24.3855 12.2811 24.6453 12.1074 24.9313 11.989C25.2173 11.8705 25.5238 11.8096 25.8333 11.8096C26.1428 11.8096 26.4493 11.8705 26.7353 11.989C27.0213 12.1074 27.2811 12.2811 27.5 12.4999C27.7188 12.7188 27.8924 12.9786 28.0109 13.2646C28.1294 13.5506 28.1903 13.8571 28.1903 14.1666C28.1903 14.4761 28.1294 14.7826 28.0109 15.0686C27.8924 15.3546 27.7188 15.6144 27.5 15.8333L16.25 27.0833L11.6666 28.3333L12.9166 23.7499L24.1666 12.4999Z"
-                          stroke="#667085"
-                          stroke-width="1.66667"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2536_463">
-                          <rect
-                            width="20"
-                            height="20"
-                            fill="white"
-                            transform="translate(10 10)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg> */}
+                    />
                     <svg
                       width="20"
                       height="20"
@@ -180,7 +156,12 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                       xmlns="http://www.w3.org/2000/svg"
                       className="cursor-pointer"
                       onClick={() => {
-                        router.push(`/admin/students/${user.id}`);
+                        router.push({
+                          pathname: `/admin/sport/${user.id}`,
+                          query: {
+                            sport: JSON.stringify(user),
+                          },
+                        });
                       }}
                     >
                       <rect
@@ -217,7 +198,7 @@ export default function UserTable({ currentItems }: adUserTableProp) {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure you want to delete this student profile?
+              Are you sure you want to delete this sport?
             </AlertDialogBody>
 
             <AlertDialogFooter>
@@ -229,7 +210,7 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                   deleteUser(selectedId);
                 }}
               >
-                Delete
+                {loading ? <Spinner /> : "Delete"}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -17,7 +17,7 @@ import { LuUser2 } from "react-icons/lu";
 import { PiBarricadeFill, PiSignOut } from "react-icons/pi";
 import { SiOpenaccess } from "react-icons/si";
 
-export default function Sidebar() {
+export default function ClientSidebar() {
   const router = useRouter();
   const [user, setUser] = useState<any>();
   useEffect(() => {
@@ -50,22 +50,23 @@ export default function Sidebar() {
           </div>
           <div className="flex flex-col gap-1">
             <p className="font-semibold text-sm text-primary">
+              {" "}
               {user?.firstName} {user?.lastName}
             </p>
-            <p className=" text-xs text-[#83899F]">Admin</p>
+            <p className=" text-xs text-[#83899F]">Student</p>
           </div>
         </div>
         <div
           className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-black ease-in-out duration-700 px-5 py-2 rounded-lg  ${
-            router.asPath == "/admin/dashboard"
+            router.asPath == "/student/dashboard"
               ? "text-black "
               : "text-[#5E6278]"
           }`}
           onClick={() => {
-            router.push("/admin/dashboard");
+            router.push("/student/dashboard");
           }}
         >
-          {router.asPath == "/admin/dashboard" ? (
+          {router.asPath == "/student/dashboard" ? (
             <svg
               width="16"
               height="16"
@@ -105,64 +106,18 @@ export default function Sidebar() {
 
           <p className={` text-[14px]`}>Dashboard</p>
         </div>
+
         <div
-          className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-black  ease-in-out duration-700 px-5 py-2 rounded-lg  ${
-            router.asPath == "/admin/students"
+          className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-black ease-in-out duration-700 px-5 py-2 rounded-lg  ${
+            router.asPath == "/student/sports"
               ? "text-black "
               : "text-[#5E6278]"
           }`}
           onClick={() => {
-            router.push("/admin/students");
+            router.push("/student/sports");
           }}
         >
-          {router.asPath == "/admin/students" ? (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.6 7.33325H2C1.6 7.33325 1.33334 7.59992 1.33334 7.99992C1.33334 8.39992 1.6 8.66659 2 8.66659H9.6V7.33325Z"
-                fill="#181C32"
-              />
-              <path
-                opacity="0.3"
-                d="M9.59999 13.3334V2.66675L14.4667 7.53341C14.7333 7.80007 14.7333 8.20009 14.4667 8.46676L9.59999 13.3334Z"
-                fill="#181C32"
-              />
-            </svg>
-          ) : (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.6 7.33325H2C1.6 7.33325 1.33334 7.59992 1.33334 7.99992C1.33334 8.39992 1.6 8.66659 2 8.66659H9.6V7.33325Z"
-                fill="#7E8299"
-              />
-              <path
-                opacity="0.3"
-                d="M9.59999 13.3334V2.66675L14.4667 7.53341C14.7333 7.80007 14.7333 8.20009 14.4667 8.46676L9.59999 13.3334Z"
-                fill="#7E8299"
-              />
-            </svg>
-          )}
-          <p className={` text-[14px]`}>Manage Students</p>
-        </div>
-        <div
-          className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-black ease-in-out duration-700 px-5 py-2 rounded-lg  ${
-            router.asPath == "/admin/sports" ? "text-black " : "text-[#5E6278]"
-          }`}
-          onClick={() => {
-            router.push("/admin/sports");
-          }}
-        >
-          {router.asPath == "/admin/sports" ? (
+          {router.asPath == "/student/sports" ? (
             <svg
               width="16"
               height="16"
@@ -203,23 +158,23 @@ export default function Sidebar() {
         </div>
 
         {/* <div
-          className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-primary hover:bg-hoverBg ease-in-out duration-700 px-5 py-2 rounded-lg  ${
-            router.asPath == "/"
-              ? "text-primary bg-hoverBg"
-              : "text-[#5E604D30]"
-          }`}
-          onClick={() => {
-            router.push("/dashboard");
-          }}
-        >
-          <CiSettings />
-          <p className={` text-[14px]`}>Settings</p>
-        </div> */}
+            className={`w-full flex gap-3 cursor-pointer items-center font-semibold hover:text-primary hover:bg-hoverBg ease-in-out duration-700 px-5 py-2 rounded-lg  ${
+              router.asPath == "/"
+                ? "text-primary bg-hoverBg"
+                : "text-[#5E604D30]"
+            }`}
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+          >
+            <CiSettings />
+            <p className={` text-[14px]`}>Settings</p>
+          </div> */}
       </div>
       <div className="">
         <div
           className={`w-full flex gap-3 cursor-pointer items-center font-semibold text-[#5E6278] hover:text-black  ease-in-out duration-400 px-5 py-2 rounded-full  text-primary
-           `}
+             `}
           onClick={logout}
         >
           <PiSignOut />

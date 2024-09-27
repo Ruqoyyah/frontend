@@ -1,7 +1,12 @@
 import Layout from "@/components/layout";
 import ClientNavbar from "@/components/layout/navbar";
+import AddStudentModal from "@/components/modals/addStudentModal";
 import UserTable from "@/components/utils/userTable";
-import { useEffect } from "react";
+import { ISport, IUser } from "@/models/index.model";
+import AdminServices from "@/services/Admin-services";
+import { useDisclosure, useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { LuCalendarRange } from "react-icons/lu";
 import { MdAdd } from "react-icons/md";
 
@@ -64,47 +69,60 @@ export default function Dashboard() {
       amt: 2100,
     },
   ];
-  const students = [
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-    {
-      name: "Tony Bright",
-      grade: "A+",
-      sport: "Basketball",
-      email: "sample@gmail.com",
-    },
-  ];
+  const router = useRouter();
+  const [sports, setSports] = useState<ISport[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const [user, setUser] = useState<any>();
+  const [students, setStudents] = useState<IUser[]>([]);
+  const getallStudents = async () => {
+    try {
+      const res = await AdminServices.getUserbyType("STUDENT");
+      if (res.statusCode == "OK") {
+        setStudents(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  const getallSports = async () => {
+    try {
+      const res = await AdminServices.getAllSports();
+      if (res.statusCode == "OK") {
+        setSports(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
   useEffect(() => {
-    // Set the state to true once component mounts
-    // setIsClient(true);
+    const user =
+      typeof window !== undefined
+        ? JSON.parse(localStorage.getItem("currentUser") as string)
+        : null;
+    setUser(user);
+    getallStudents();
+    getallSports();
   }, []);
 
   return (
@@ -112,7 +130,7 @@ export default function Dashboard() {
       <div className="flex h-full flex-row">
         <div className="p-5 flex h-full overflow-scroll flex-col gap-7 w-[70%]">
           <div className="flex flex-col gap-1">
-            <p className="text-xl font-semibold">Hello, Paul</p>
+            <p className="text-xl font-semibold">Hello, {user?.firstName}</p>
             <p className="text-sm text-[#B5B5C3]">Welcome back</p>
           </div>
           <div className="flex flex-col gap-3 w-full md:flex-row">
@@ -142,8 +160,8 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
               <div className="flex items-center justify-between">
-                <p className="text-2xl font-bold">567</p>
-                <p className="text-sm font-bold">+ 28% this week</p>
+                <p className="text-2xl font-bold">{students?.length}</p>
+                {/* <p className="text-sm font-bold">+ 28% this week</p> */}
               </div>
             </div>
             <div className="w-full h-[220px] bg-[#CBF0F4] rounded-xl flex flex-col p-5 gap-4">
@@ -177,7 +195,7 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
               <div className="flex items-center justify-between">
-                <p className="text-2xl font-bold">47</p>
+                <p className="text-2xl font-bold">{sports.length}</p>
                 <p className="text-sm font-bold">+ 28% this week</p>
               </div>
             </div>
@@ -187,20 +205,29 @@ export default function Dashboard() {
               <div className="flex flex-col gap-2">
                 <p className="text-xl font-semibold text-black">Student List</p>
                 <p className="text-sm text-[#B5B5C3] font-semibold ">
-                  560 students
+                  {students?.length}
                 </p>
               </div>
               <div className="flex items-center gap-2 justify-end">
-                <button className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold">
+                <button
+                  className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold"
+                  onClick={() => onOpen()}
+                >
                   <MdAdd />
                   Add Student
                 </button>
-                <button className="w-fit h-fit rounded-lg text-xs text-[#A1A5B7] bg-[#F5F8FA] px-5 py-2 flex items-center gap-2 font-semibold">
+                <button
+                  className="w-fit h-fit rounded-lg text-xs text-[#A1A5B7] bg-[#F5F8FA] px-5 py-2 flex items-center gap-2 font-semibold"
+                  onClick={() => {
+                    router.push("/admin/students");
+                  }}
+                >
                   View all
                 </button>
               </div>
             </div>
             <UserTable currentItems={students} />
+            <AddStudentModal isOpen={isOpen} onClose={onClose} />
           </div>
         </div>
         <div className="h-full bg-[#0B0C0D] w-[30%] noscroll p-5 flex flex-col gap-8">

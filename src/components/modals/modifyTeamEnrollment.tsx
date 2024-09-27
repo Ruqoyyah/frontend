@@ -26,8 +26,14 @@ type modalProps = {
   isOpen: boolean;
   onClose: () => void;
   student: IUser;
+  sportId: number;
 };
-export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
+export default function ModifyEnrollModal({
+  isOpen,
+  onClose,
+  student,
+  sportId,
+}: modalProps) {
   const [firstName, setFirstName] = useState<string>("");
   const [sports, setSports] = useState<ISport[]>([]);
   const [sport, setSport] = useState<number>();
@@ -62,22 +68,13 @@ export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
   };
   useEffect(() => {
     getallSports();
+    setSport(sportId);
   }, []);
 
   const enroll = async (userId: number, sportId: number) => {
-    if (student?.sport[0]?.sportType === "TEAM") {
-      toast({
-        title: "Enroll",
-        description: `You are currently enrolled to a team sport and cannot enroll to another`,
-        duration: 2000,
-        status: "error",
-      });
-      onClose();
-      return;
-    }
     setIsloading(true);
     try {
-      const res = await StudentServices.EnrollSport(userId, sportId);
+      const res = await StudentServices.ModifyUserSport(userId, sportId);
       if (res.statusCode === "OK") {
         setIsloading(false);
 
@@ -107,10 +104,12 @@ export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
       <ModalContent borderRadius={32}>
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
-            <p className="font-semibold text-[#1F2937]">Enroll to a sport</p>
-            <p className="text-sm text-[#424550]">
-              Your request will be sent out for approval.
+            <p className="font-semibold text-[#1F2937]">
+              Change the sport you are enrolled in
             </p>
+            {/* <p className="text-sm text-[#424550]">
+              Your request will be sent out for approval.
+            </p> */}
           </div>
         </ModalHeader>
         <ModalCloseButton />
@@ -122,6 +121,7 @@ export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
               <Select
                 size={"lg"}
                 onChange={(e) => setSport(parseInt(e.target.value))}
+                value={sportId}
               >
                 <option value="">Please select a sport</option>
                 {sports &&

@@ -28,65 +28,70 @@ export default function Login() {
     onClose: onForgotClose,
   } = useDisclosure();
   const toast = useToast();
-  // const login = async () => {
-  //   if (email === "") {
-  //     toast({
-  //       title: "Authentication",
-  //       description: "Please Enter a valid email address",
-  //       duration: 2000,
-  //       status: "error",
-  //     });
-  //     return;
-  //   }
-  //   if (password === "") {
-  //     toast({
-  //       title: "Authentication",
-  //       description: "Please Enter a password",
-  //       duration: 2000,
-  //       status: "error",
-  //     });
-  //     return;
-  //   }
-  //   setIsloading(true);
-  //   let data: LoginDto = {
-  //     email,
-  //     password,
-  //   };
-  //   try {
-  //     const res = await AdminServices.login(data);
-  //     if (res.user.id != undefined) {
-  //       setIsloading(false);
-  //       localStorage.setItem("token", res.payload.token);
-  //       CookieManager.setCookie("jwt", res.payload.token, 1);
-  //       CookieManager.setCookie("user", JSON.stringify(res.user), 1);
-  //       sessionStorage.setItem("User", JSON.stringify(res.user));
-  //       toast({
-  //         title: "Authentication",
-  //         description: "Login Successfull",
-  //         duration: 2000,
-  //         status: "success",
-  //       });
-  //       router.push("/dashboard");
-  //     } else {
-  //       setIsloading(false);
-  //       console.log(res);
-  //     }
-  //   } catch (error: any) {
-  //     setIsloading(false);
-  //     toast({
-  //       title: "Authentication",
-  //       description: `${error.response.data.message}`,
-  //       duration: 2000,
-  //       status: "error",
-  //     });
-  //     console.log(error, "mav");
-  //   }
-  // };
-  // useEffect(() => {
-  //   if (email !== "" && password !== "") {
-  //     setDisabled(false);
-  //   }
-  // }, [email, password]);
+  const login = async () => {
+    if (email === "") {
+      toast({
+        title: "Authentication",
+        description: "Please Enter a valid email address",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    if (password === "") {
+      toast({
+        title: "Authentication",
+        description: "Please Enter a password",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    setIsloading(true);
+    let data: LoginDto = {
+      email,
+      password,
+    };
+    try {
+      const res = await AdminServices.login(data);
+      if (res.statusCode == "OK") {
+        setIsloading(false);
+        const { jwt, ...rest } = res.data;
+        localStorage.setItem("token", jwt);
+        CookieManager.setCookie("jwt", jwt, 1);
+        localStorage.setItem("currentUser", JSON.stringify(rest));
+
+        toast({
+          title: "Authentication",
+          description: "Login Successfull",
+          duration: 2000,
+          status: "success",
+        });
+        if (rest.userType === "SUPER_ADMIN") {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/student/dashboard");
+        }
+      } else {
+        setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      setIsloading(false);
+      toast({
+        title: "Authentication",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  useEffect(() => {
+    if (email !== "" && password !== "") {
+      setDisabled(false);
+    }
+  }, [email, password]);
   return (
     <div className="body h-screen">
       <ClientNavbar page="emptu" />
@@ -143,8 +148,9 @@ export default function Login() {
             <FancyButton
               text="Login"
               // disabled={disabled}
+              loading={loading}
               onClick={() => {
-                // login();
+                login();
               }}
             />
 
