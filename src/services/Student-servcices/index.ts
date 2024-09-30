@@ -1,4 +1,3 @@
-import { CreateRoleDto } from "@/models/index.model";
 import HTTPClient from "../http_instance";
 
 export default class StudentServices {

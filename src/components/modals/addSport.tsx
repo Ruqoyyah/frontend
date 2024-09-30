@@ -1,6 +1,6 @@
 // import { CreateUserDto, IRole } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { CreateSport, IRole, SignUpDto } from "@/models/index.model";
+import { CreateSport, SignUpDto } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import {
   Modal,
