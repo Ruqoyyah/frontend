@@ -1,8 +1,10 @@
 import ClientNavbar from "@/components/layout/navbar";
 import FancyButton from "@/components/utils/fancyButton";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div className="body h-screen">
       <ClientNavbar page="emptu" />
@@ -20,12 +22,12 @@ export default function Home() {
                 className="flex flex-col md:flex-row 
                w-full gap-5 md:gap-2"
               >
-                <input
-                  type="text"
-                  placeholder="enter your email"
-                  className="bg-transparent border border-[#fafafa] p-2 w-[70%] rounded-lg"
+                <FancyButton
+                  text="Start Now"
+                  onClick={() => {
+                    router.push("/signup");
+                  }}
                 />
-                <FancyButton text="Start Now" onClick={() => {}} />
               </div>
               <p className="text-xs text-[#D6D6D670]">
                 We care about your data in our privacy policy.

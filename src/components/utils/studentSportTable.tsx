@@ -21,6 +21,7 @@ import {
   useDisclosure,
   Button,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -46,6 +47,8 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
   const [limit, setLimit] = useState<number>(10);
   const [current, setCurrentItems] = useState<ISport[]>([]);
   const [selectedId, setSelectedId] = useState<number>(0);
+  const [loading, setIsloading] = useState<boolean>(false);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isModifyOpen,
@@ -71,6 +74,33 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
         status: "error",
       });
       console.log(error, "mav");
+    }
+  };
+  const removeSport = async (userId: number, sportId: number) => {
+    setIsloading(true);
+    try {
+      const res = await StudentServices.RemoveSportFromStudent(userId, sportId);
+      if (res.statusCode === "OK") {
+        setIsloading(false);
+
+        toast({
+          title: "Enroll",
+          description: "You have successfully enrolled",
+          duration: 2000,
+          status: "success",
+        });
+        router.reload();
+      }
+    } catch (error: any) {
+      setIsloading(false);
+
+      console.log(error);
+      toast({
+        title: "Enroll",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
     }
   };
 
@@ -177,8 +207,10 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
                     )}
 
                     <MdDelete
+                      className="cursor-pointer"
                       onClick={() => {
                         onOpen();
+                        setSelectedId(user.id);
                       }}
                     />
                   </div>
@@ -216,10 +248,10 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
                 colorScheme="red"
                 ml={3}
                 onClick={() => {
-                  //   deleteUser(selectedId);
+                  removeSport(student?.id as number, selectedId);
                 }}
               >
-                Leave
+                {loading ? <Spinner /> : "Leave"}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

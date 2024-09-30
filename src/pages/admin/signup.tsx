@@ -120,18 +120,18 @@ export default function SignupAdmin() {
     }
   }, [email, password]);
   return (
-    <div className="body h-screen">
+    <div className="body flex flex-col text-white gap-5 pb-8">
       <ClientNavbar page="emptu" />
       <div className="h-[89%] flex items-center justify-center">
         <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
           <div className="flex flex-col items-center gap-2 w-full">
-            <p className="leading-24 text-xl ">Sign Up as Admin</p>
+            <p className="leading-24 text-white text-xl ">Sign Up as Admin</p>
             <p className="text-[#D6D6D670]">
               To get started, you need to sign up here.
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-5 w-full">
+          <div className="flex text-white flex-col items-center gap-5  w-full">
             <div className="flex flex-col gap-2 w-full">
               <p className="leading-24  text-sm font-[400]">Firstname</p>
               <Input

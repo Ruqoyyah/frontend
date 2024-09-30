@@ -121,9 +121,9 @@ export default function Signup() {
     }
   }, [email, password]);
   return (
-    <div className="body h-screen">
+    <div className="body flex flex-col  gap-5 pb-8">
       <ClientNavbar page="emptu" />
-      <div className="h-[89%] flex items-center justify-center">
+      <div className="h-[89%] flex text-white items-center justify-center">
         <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
           <div className="flex flex-col items-center gap-2 w-full">
             <p className="leading-24 text-xl ">Sign Up</p>
@@ -155,7 +155,7 @@ export default function Signup() {
               <p className="leading-24  text-sm font-[400]">Username</p>
               <Input
                 size={"lg"}
-                placeholder="Enter your lastname"
+                placeholder="Enter username"
                 value={username}
                 border={"1px solid #cccccc50"}
                 type="text"
@@ -173,7 +173,7 @@ export default function Signup() {
               <p className="leading-24  text-sm font-[400]">Reg. No</p>
               <Input
                 size={"lg"}
-                placeholder="Enter your email"
+                placeholder="Enter student registration number"
                 value={regno}
                 border={"1px solid #cccccc50"}
                 type="text"

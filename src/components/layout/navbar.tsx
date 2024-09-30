@@ -61,7 +61,7 @@ export default function ClientNavbar({ page }: navbarProps) {
     setDate(getFormattedDate());
   }, []);
   return (
-    <div className="w-full sticky top-0 flex border-b-[1px] border-[#ffffff60] items-center justify-between z-10 px-5 py-3 bg-transparent">
+    <div className="w-full  flex border-b-[1px] border-[#ffffff60] items-center justify-between z-10 px-5 py-3 bg-transparent">
       <div className="flex flex-col gap-1">
         <p
           className="text-xl text-white cursor-pointer font-semibold"

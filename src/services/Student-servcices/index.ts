@@ -15,6 +15,13 @@ export default class StudentServices {
     );
     return response.data;
   }
+  static async RemoveSportFromStudent(userId: number, sportId: number) {
+    const response = await HTTPClient.put(
+      `/user/delete_sportByUser/${userId}/${sportId}`,
+      undefined
+    );
+    return response.data;
+  }
   static async GetUserById(id: number) {
     const response = await HTTPClient.get(`/user/get_user_by_id/${id}`);
     return response.data;
