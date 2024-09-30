@@ -19,6 +19,8 @@ export default function SignupAdmin() {
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [regno, setRegNo] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -71,10 +73,10 @@ export default function SignupAdmin() {
     let data: SignUpDto = {
       firstname,
       lastname,
-      username: `${firstname}_${lastname}`,
+      username,
       password,
       email,
-      registnumber: "random string",
+      registnumber: regno,
     };
     try {
       const res = await AdminServices.CreateAdminUser(data);
@@ -137,7 +139,7 @@ export default function SignupAdmin() {
                 placeholder="Enter your firstname"
                 value={firstname}
                 border={"1px solid #cccccc50"}
-                type="firstname"
+                type="text"
                 onChange={(e) => setFirstname(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Lastname</p>
@@ -146,8 +148,17 @@ export default function SignupAdmin() {
                 placeholder="Enter your lastname"
                 value={lastname}
                 border={"1px solid #cccccc50"}
-                type="email"
+                type="text"
                 onChange={(e) => setLastname(e.target.value)}
+              />
+              <p className="leading-24  text-sm font-[400]">Username</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your lastname"
+                value={username}
+                border={"1px solid #cccccc50"}
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Email</p>
               <Input
@@ -157,6 +168,15 @@ export default function SignupAdmin() {
                 border={"1px solid #cccccc50"}
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="leading-24  text-sm font-[400]">Reg. No</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your email"
+                value={regno}
+                border={"1px solid #cccccc50"}
+                type="text"
+                onChange={(e) => setRegNo(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Password</p>
               <div className="w-full flex items-center gap-2 border-[1px] pr-2  border-[#cccccc50] rounded-lg">

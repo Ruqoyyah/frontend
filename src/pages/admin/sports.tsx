@@ -11,6 +11,7 @@ import { MdAdd } from "react-icons/md";
 
 export default function Sports() {
   const [sports, setSports] = useState<ISport[]>([]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const toast = useToast();
@@ -64,7 +65,7 @@ export default function Sports() {
               <div className="flex flex-col gap-2">
                 <p className="text-xl font-semibold text-black">Sport List</p>
                 <p className="text-sm text-[#B5B5C3] font-semibold ">
-                  {sports.length} sport{sports.length > 1 ? "s" : ""}
+                  {sports.length} sport{sports.length > 1 ? "s" : ""}{" "}
                 </p>
               </div>
               <div className="flex items-center gap-2 justify-end">
@@ -88,7 +89,9 @@ export default function Sports() {
                 </button> */}
               </div>
             </div>
+
             <GenSportTable currentItems={sports} />
+
             <AddSportModal isOpen={isOpen} onClose={onClose} />
           </div>
         </div>

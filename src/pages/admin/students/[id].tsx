@@ -1,6 +1,6 @@
 import Layout from "@/components/layout";
 import SportTable from "@/components/utils/sportTable";
-import { IMockSport, ISport, IUser } from "@/models/index.model";
+import { ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import StudentServices from "@/services/Student-servcices";
 import {
@@ -50,28 +50,6 @@ export default function IndividualStudent() {
     },
   ];
 
-  const sports: IMockSport[] = [
-    {
-      name: "Basketball",
-      num: 30,
-      status: "Awaiting Approval",
-    },
-    {
-      name: "Basketball",
-      num: 30,
-      status: "Active",
-    },
-    {
-      name: "Basketball",
-      num: 30,
-      status: "Active",
-    },
-    {
-      name: "Basketball",
-      num: 30,
-      status: "Awaiting Approval",
-    },
-  ];
   const getStudent = async (id: number) => {
     try {
       const res = await StudentServices.GetUserById(id);
@@ -134,8 +112,8 @@ export default function IndividualStudent() {
               <div className="flex flex-col gap-2 items-center ">
                 <div className="bg-[#FF9C5066] rounded-full h-[60px] w-[60px] flex items-center justify-center text-white">
                   <p className="text-xl">
-                    {student?.firstname.charAt(0)}
-                    {student?.lastname.charAt(0)}
+                    {student?.firstname.charAt(0).toUpperCase()}
+                    {student?.lastname.charAt(0).toUpperCase()}
                   </p>
                 </div>
                 <p className="text-[#6B7A99]">
@@ -261,7 +239,7 @@ export default function IndividualStudent() {
                 </div>
               </div>
             </div>
-            <div className="w-[60%] p-5 bg-white flex flex flex-col gap-5 rounded-xl shadow-md">
+            {/* <div className="w-[60%] p-5 bg-white flex flex flex-col gap-5 rounded-xl shadow-md">
               <div className="flex flex-col gap-1">
                 <p className="">Upcoming Events</p>
                 <p className="text-sm text-[#B5B5C3] font-semibold">
@@ -308,7 +286,7 @@ export default function IndividualStudent() {
                   <p className="text-sm font-semibold">{event.date}</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div className="w-full bg-white rounded-xl  flex flex-col gap-5">
             <div className="w-full flex justify-between items-center">

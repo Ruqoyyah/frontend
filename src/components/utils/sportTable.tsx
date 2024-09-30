@@ -1,6 +1,6 @@
 // import { IUser } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { IMockSport, IMockUser, ISport, IUser } from "@/models/index.model";
+import { ISport, IUser } from "@/models/index.model";
 import {
   Table,
   Thead,
@@ -81,7 +81,7 @@ export default function SportTable({ currentItems }: adUserTableProp) {
           <Thead>
             <Tr>
               <Th>NAME</Th>
-              <Th>NO OF STUDENTS</Th>
+              <Th>SPORT TYPE</Th>
               {/* <Th>STATUS</Th> */}
             </Tr>
           </Thead>

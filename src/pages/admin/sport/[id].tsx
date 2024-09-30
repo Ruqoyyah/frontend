@@ -1,7 +1,7 @@
 import Layout from "@/components/layout";
 import SportTable from "@/components/utils/sportTable";
 import UserTable from "@/components/utils/userTable";
-import { IMockSport, ISport, IUser } from "@/models/index.model";
+import { ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";

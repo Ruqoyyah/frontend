@@ -1,6 +1,6 @@
 // import { CreateUserDto, IRole } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { IRole, SignUpDto } from "@/models/index.model";
+import { SignUpDto } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import {
   Modal,
@@ -28,16 +28,13 @@ type modalProps = {
 export default function AddStudentModal({ isOpen, onClose }: modalProps) {
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-
+  const [username, setUsername] = useState<string>("");
+  const [regno, setRegNo] = useState<string>("");
   const [loading, setIsloading] = useState<boolean>(false);
-  const [role, setRole] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
-  const [roles, setRoles] = useState<any[]>([{ id: 1, name: "basketball" }]);
-  useEffect(() => {
-    // getRoles();
-  }, []);
+
   const toast = useToast();
   const router = useRouter();
   const createUser = async () => {
@@ -81,10 +78,10 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
     let data: SignUpDto = {
       firstname,
       lastname,
-      username: `${firstname}_${lastname}`,
+      username,
       password,
       email,
-      registnumber: "random string",
+      registnumber: regno,
     };
     try {
       const res = await AdminServices.CreateUser(data);
@@ -129,29 +126,47 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
               <p className="leading-24  text-sm font-[400]">Firstname</p>
               <Input
                 size={"lg"}
-                placeholder="Enter firstname"
+                placeholder="Enter your firstname"
                 value={firstname}
                 border={"1px solid #cccccc50"}
-                type="firstname"
+                type="text"
                 onChange={(e) => setFirstname(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Lastname</p>
               <Input
                 size={"lg"}
-                placeholder="Enter lastname"
+                placeholder="Enter your lastname"
                 value={lastname}
                 border={"1px solid #cccccc50"}
-                type="email"
+                type="text"
                 onChange={(e) => setLastname(e.target.value)}
+              />
+              <p className="leading-24  text-sm font-[400]">Username</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your lastname"
+                value={username}
+                border={"1px solid #cccccc50"}
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Email</p>
               <Input
                 size={"lg"}
-                placeholder="Enter email"
+                placeholder="Enter your email"
                 value={email}
                 border={"1px solid #cccccc50"}
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="leading-24  text-sm font-[400]">Reg. No</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter your email"
+                value={regno}
+                border={"1px solid #cccccc50"}
+                type="text"
+                onChange={(e) => setRegNo(e.target.value)}
               />
               <p className="leading-24  text-sm font-[400]">Password</p>
               <div className="w-full flex items-center gap-2 border-[1px] pr-2  border-[#cccccc50] rounded-lg">

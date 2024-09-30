@@ -9,6 +9,7 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
+import axios from "axios";
 
 export default function Sports() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,6 +18,7 @@ export default function Sports() {
   const getStudent = async (id: number) => {
     try {
       const res = await StudentServices.GetUserById(id);
+
       if (res.statusCode == "OK") {
         setStudent(res.data);
       } else {

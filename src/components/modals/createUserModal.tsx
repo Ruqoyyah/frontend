@@ -1,6 +1,6 @@
 // import { CreateUserDto, IRole } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { IRole, ISport, IUser } from "@/models/index.model";
+import { ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import StudentServices from "@/services/Student-servcices";
 import {

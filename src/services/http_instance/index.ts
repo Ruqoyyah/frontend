@@ -77,7 +77,7 @@ class HTTPClient {
       Authorization: getJWT(),
     };
 
-    const response = await instance.post(endpoint, data, { headers });
+    const response = await instance.postForm(endpoint, data, { headers });
     return response;
   }
 

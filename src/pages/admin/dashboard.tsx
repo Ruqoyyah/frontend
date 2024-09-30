@@ -5,6 +5,7 @@ import UserTable from "@/components/utils/userTable";
 import { ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import { useDisclosure, useToast } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LuCalendarRange } from "react-icons/lu";
@@ -134,69 +135,36 @@ export default function Dashboard() {
             <p className="text-sm text-[#B5B5C3]">Welcome back</p>
           </div>
           <div className="flex flex-col gap-3 w-full md:flex-row">
-            <div className="w-full h-[220px] bg-[#F6D9E3] rounded-xl flex flex-col p-5 gap-4">
+            <div className="w-full h-[270px] bg-[#F6D9E3] rounded-xl flex flex-col p-5 gap-4">
               <p className="font-semibold">Students</p>
-              <div className="h-[100px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    width={500}
-                    height={200}
-                    data={data}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    {/* <XAxis dataKey="name" />
-          <YAxis /> */}
-                    <Tooltip />
-                    {/* <Legend /> */}
-                    <Line type="monotone" dataKey="pv" stroke="#ffffff" />
-                    {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                  </LineChart>
-                </ResponsiveContainer>
+              <div className="h-[150px] w-full">
+                <Image
+                  src="/img/students.png"
+                  alt="sports"
+                  width={500}
+                  height={500}
+                  className="h-full"
+                />
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">{students?.length}</p>
                 {/* <p className="text-sm font-bold">+ 28% this week</p> */}
               </div>
             </div>
-            <div className="w-full h-[220px] bg-[#CBF0F4] rounded-xl flex flex-col p-5 gap-4">
+            <div className="w-full h-[270px] bg-[#CBF0F4] rounded-xl flex flex-col p-5 gap-4">
               <p className="font-semibold">Sports</p>
-              <div className="h-[100px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    width={500}
-                    height={200}
-                    data={data}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    {/* <XAxis dataKey="name" />
-          <YAxis /> */}
-                    <Tooltip />
-                    {/* <Legend /> */}
-                    <Bar
-                      dataKey="pv"
-                      fill="#ffffff"
-                      activeBar={<Rectangle fill="pink" stroke="blue" />}
-                      barSize={5}
-                    />
-                    {/* <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} /> */}
-                  </BarChart>
-                </ResponsiveContainer>
+              <div className="h-[150px] w-full">
+                <Image
+                  src="/img/sports.png"
+                  alt="sports"
+                  width={500}
+                  height={500}
+                  className="h-full"
+                />
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">{sports.length}</p>
-                <p className="text-sm font-bold">+ 28% this week</p>
+                {/* <p className="text-sm font-bold">+ 28% this week</p> */}
               </div>
             </div>
           </div>

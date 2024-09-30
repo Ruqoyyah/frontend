@@ -1,6 +1,6 @@
 // import { IUser } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { IMockUser, IUser } from "@/models/index.model";
+import { IUser } from "@/models/index.model";
 import {
   Table,
   Thead,
@@ -84,7 +84,8 @@ export default function UserTable({ currentItems }: adUserTableProp) {
               <Th>NAME</Th>
               <Th>EMAIL</Th>
               <Th>ID</Th>
-              <Th>SPORT TYPE</Th>
+              <Th>SPORTS </Th>
+              <Th>ACTION </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -181,6 +182,7 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                       className="cursor-pointer"
                       onClick={() => {
                         router.push(`/admin/students/${user.id}`);
+                        // setModifyAlert(!modifyAlert);
                       }}
                     >
                       <rect
