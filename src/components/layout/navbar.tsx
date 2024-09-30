@@ -74,18 +74,10 @@ export default function ClientNavbar({ page }: navbarProps) {
       </div>
 
       <div className="flex items-center gap-4">
-        <button
-          className="bg-greybg px-5 py-2 rounded-lg border-[#fafafa] border w-fit h-fit text-white"
+        <FancyButton
+          text="Login"
           onClick={() => {
             router.push("/login");
-          }}
-        >
-          Login
-        </button>
-        <FancyButton
-          text="Sign Up"
-          onClick={() => {
-            router.push("/signup");
           }}
         />
       </div>

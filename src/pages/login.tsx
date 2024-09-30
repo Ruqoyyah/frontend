@@ -96,7 +96,7 @@ export default function Login() {
     <div className="body h-screen">
       <ClientNavbar page="emptu" />
       <div className="h-[80%] flex items-center justify-center">
-        <div className="w-[80%] md:w-[60%] lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
+        <div className="w-[80%] md:w-[60%] text-white lg:w-[40%] bg-[#23262880] flex flex-col gap-3 rounded-lg p-5">
           <div className="flex flex-col items-center gap-2 w-full">
             <p className="leading-24 text-xl ">Login</p>
             <p className="text-[#D6D6D670]">

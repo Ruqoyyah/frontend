@@ -126,7 +126,10 @@ export default function Sports() {
                 </button> */}
               </div>
             </div>
-            <StudentSportTable currentItems={student?.sport as ISport[]} />
+            <StudentSportTable
+              currentItems={student?.sport as ISport[]}
+              id={student?.id as number}
+            />
             <EnrollModal
               isOpen={isOpen}
               onClose={onClose}

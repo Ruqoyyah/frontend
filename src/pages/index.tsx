@@ -25,7 +25,7 @@ export default function Home() {
                 <FancyButton
                   text="Start Now"
                   onClick={() => {
-                    router.push("/signup");
+                    router.push("/login");
                   }}
                 />
               </div>

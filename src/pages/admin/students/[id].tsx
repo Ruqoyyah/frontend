@@ -1,5 +1,6 @@
 import Layout from "@/components/layout";
 import SportTable from "@/components/utils/sportTable";
+import StudentSportTable from "@/components/utils/studentSportTable";
 import { ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import StudentServices from "@/services/Student-servcices";
@@ -310,7 +311,10 @@ export default function IndividualStudent() {
                 </button> */}
               </div>
             </div>
-            <SportTable currentItems={student?.sport as ISport[]} />
+            <StudentSportTable
+              currentItems={student?.sport as ISport[]}
+              id={student?.id as number}
+            />
           </div>
         </div>
       </div>

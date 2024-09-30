@@ -37,8 +37,12 @@ import { MdDelete } from "react-icons/md";
 
 type adUserTableProp = {
   currentItems: ISport[];
+  id: number;
 };
-export default function StudentSportTable({ currentItems }: adUserTableProp) {
+export default function StudentSportTable({
+  currentItems,
+  id,
+}: adUserTableProp) {
   const router = useRouter();
   const toast = useToast();
 
@@ -105,15 +109,10 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
   };
 
   useEffect(() => {
-    const user =
-      typeof window !== undefined
-        ? JSON.parse(localStorage.getItem("currentUser") as string)
-        : null;
-    // setUser(user);
-    if (user) {
-      getStudent(user.id);
+    if (id) {
+      getStudent(id);
     }
-  }, []);
+  }, [id]);
   const cancelRef = useRef<HTMLButtonElement | null>(null);
 
   //   const deleteUser = async (id: number) => {
@@ -154,7 +153,7 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
             <Tr>
               <Th>NAME</Th>
               <Th>SPORT TYPE</Th>
-              <Th>ACTION</Th>
+              {router.asPath.startsWith("/admin") ? <Th>ACTION</Th> : null}
             </Tr>
           </Thead>
           <Tbody>
@@ -194,27 +193,29 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
                   {" "}
                   <p className="font-[500]">{user?.grade}</p>
                 </Td> */}
-                <Td>
-                  <div className="flex items-center gap-2">
-                    {user?.sportType === "TEAM" && (
-                      <FaPencil
+                {router.asPath.startsWith("/admin") ? (
+                  <Td>
+                    <div className="flex items-center gap-2">
+                      {user?.sportType === "TEAM" && (
+                        <FaPencil
+                          className="cursor-pointer"
+                          onClick={() => {
+                            onModifyOpen();
+                            setSelectedId(user?.id);
+                          }}
+                        />
+                      )}
+
+                      <MdDelete
                         className="cursor-pointer"
                         onClick={() => {
-                          onModifyOpen();
-                          setSelectedId(user?.id);
+                          onOpen();
+                          setSelectedId(user.id);
                         }}
                       />
-                    )}
-
-                    <MdDelete
-                      className="cursor-pointer"
-                      onClick={() => {
-                        onOpen();
-                        setSelectedId(user.id);
-                      }}
-                    />
-                  </div>
-                </Td>
+                    </div>
+                  </Td>
+                ) : null}
               </Tr>
             ))}
           </Tbody>
@@ -239,7 +240,7 @@ export default function StudentSportTable({ currentItems }: adUserTableProp) {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure you want to leave this sport
+              Are you sure you want to remove this student from this sport?
             </AlertDialogBody>
 
             <AlertDialogFooter>
