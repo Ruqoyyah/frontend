@@ -1,4 +1,5 @@
 import Layout from "@/components/layout";
+import EditStudentModal from "@/components/modals/editStudentModal";
 import SportTable from "@/components/utils/sportTable";
 import StudentSportTable from "@/components/utils/studentSportTable";
 import { ISport, IUser } from "@/models/index.model";
@@ -26,6 +27,11 @@ export default function IndividualStudent() {
   const toast = useToast();
   const [student, setStudent] = useState<IUser>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
@@ -101,12 +107,20 @@ export default function IndividualStudent() {
             >
               <MdArrowBack /> <p className="">Back</p>
             </button>
-            <button
-              className="flex gap-2 items-center text-red-600 bg-red-100 rounded-lg px-5 py-2 text-sm font-semibold"
-              onClick={() => onOpen()}
-            >
-              Delete student
-            </button>
+            <div className="flex gap-3">
+              <button
+                className="flex gap-2 items-center text-blue-600 bg-blue-100 rounded-lg px-5 py-2 text-sm font-semibold"
+                onClick={() => onEditOpen()}
+              >
+                Edit student
+              </button>
+              <button
+                className="flex gap-2 items-center text-red-600 bg-red-100 rounded-lg px-5 py-2 text-sm font-semibold"
+                onClick={() => onOpen()}
+              >
+                Delete student
+              </button>
+            </div>
           </div>
           <div className="w-full flex gap-5">
             <div className="w-[40%] p-5 bg-white rounded-xl shadow-md flex flex-col gap-3">
@@ -311,6 +325,11 @@ export default function IndividualStudent() {
                 </button> */}
               </div>
             </div>
+            <EditStudentModal
+              onClose={onEditClose}
+              isOpen={isEditOpen}
+              student={student as IUser}
+            />
             <StudentSportTable
               currentItems={student?.sport as ISport[]}
               id={student?.id as number}

@@ -1,4 +1,9 @@
-import { CreateSport, LoginDto, SignUpDto } from "@/models/index.model";
+import {
+  CreateSport,
+  EditDto,
+  LoginDto,
+  SignUpDto,
+} from "@/models/index.model";
 import HTTPClient from "../http_instance";
 
 export default class AdminServices {
@@ -24,6 +29,10 @@ export default class AdminServices {
   }
   static async CreateUser(data: SignUpDto) {
     const response = await HTTPClient.post(`/user/create_student`, data);
+    return response.data;
+  }
+  static async editUser(data: EditDto, id: number) {
+    const response = await HTTPClient.put(`/user/update_user/${id}`, data);
     return response.data;
   }
   static async CreateSport(data: CreateSport) {

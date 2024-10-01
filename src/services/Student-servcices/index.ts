@@ -16,9 +16,8 @@ export default class StudentServices {
     return response.data;
   }
   static async RemoveSportFromStudent(userId: number, sportId: number) {
-    const response = await HTTPClient.put(
-      `/user/delete_sportByUser/${userId}/${sportId}`,
-      undefined
+    const response = await HTTPClient.delete(
+      `/user/delete_sportByUser/${userId}/${sportId}`
     );
     return response.data;
   }

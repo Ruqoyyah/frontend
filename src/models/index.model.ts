@@ -10,6 +10,14 @@ export type SignUpDto = {
   email: string;
   registnumber: string;
 };
+export type EditDto = {
+  firstname: string;
+  lastname: string;
+  username: string;
+
+  email: string;
+  registnumber: string;
+};
 export type CreateSport = {
   sportName: string;
   sportType: string;

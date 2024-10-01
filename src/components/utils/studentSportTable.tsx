@@ -252,7 +252,7 @@ export default function StudentSportTable({
                   removeSport(student?.id as number, selectedId);
                 }}
               >
-                {loading ? <Spinner /> : "Leave"}
+                {loading ? <Spinner /> : "Remove"}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
