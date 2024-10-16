@@ -28,6 +28,9 @@ type modalProps = {
 export default function AddSportModal({ isOpen, onClose }: modalProps) {
   const [sportName, setSportName] = useState<string>("");
   const [sportType, setSportType] = useState<string>("");
+  const [season, setSeason] = useState<string>("");
+  const [deadline, setDeadline] = useState<string>("");
+  const [year, setYear] = useState<string>("");
   const [loading, setIsloading] = useState<boolean>(false);
 
   const toast = useToast();
@@ -51,10 +54,40 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
       });
       return;
     }
+    if (deadline === "") {
+      toast({
+        title: "Create",
+        description: "Please select registration deadline",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    if (year === "") {
+      toast({
+        title: "Create",
+        description: "Please select year",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    if (season === "") {
+      toast({
+        title: "Create",
+        description: "Please provide season",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
     setIsloading(true);
     let data: CreateSport = {
       sportName,
       sportType,
+      enrollmentDeadline: deadline,
+      year: parseInt(year),
+      season,
     };
     try {
       const res = await AdminServices.CreateSport(data);
@@ -99,18 +132,49 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
               <p className="leading-24  text-sm font-[400]">Sport Name</p>
               <Input
                 size={"lg"}
-                placeholder="Enter firstname"
+                placeholder="Enter sport name"
                 value={sportName}
                 border={"1px solid #cccccc50"}
                 type="sportname"
                 onChange={(e) => setSportName(e.target.value)}
               />
+              <p className="leading-24  text-sm font-[400]">Season</p>
+              <Input
+                size={"lg"}
+                placeholder="Enter Season"
+                value={season}
+                border={"1px solid #cccccc50"}
+                type="sportname"
+                onChange={(e) => setSeason(e.target.value)}
+              />
+
+              <p className="leading-24  text-sm font-[400]">Year</p>
+              <Select onChange={(e) => setYear(e.target.value)}>
+                <option value="">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+              </Select>
               <p className="leading-24  text-sm font-[400]">Sport Type</p>
               <Select onChange={(e) => setSportType(e.target.value)}>
                 <option value="">Select sport type</option>
                 <option value="TEAM">Team</option>
                 <option value="INDIVIDUAL">Individual</option>
               </Select>
+              <p className="leading-24  text-sm font-[400]">
+                Registration Deadline
+              </p>
+              <Input
+                size={"lg"}
+                placeholder=""
+                value={deadline}
+                border={"1px solid #cccccc50"}
+                type="datetime-local"
+                onChange={(e) => setDeadline(e.target.value)}
+              />
             </div>
           </div>
         </ModalBody>

@@ -21,6 +21,14 @@ export type EditDto = {
 export type CreateSport = {
   sportName: string;
   sportType: string;
+  enrollmentDeadline?: string;
+  year?: number;
+  season?: string;
+};
+export type CreateEvent = {
+  sportId: number;
+  eventName: string;
+  eventDate: string;
 };
 
 export type IUser = {
@@ -38,4 +46,13 @@ export type ISport = {
   sportName: string;
   creationDate: string;
   sportType: string;
+  enrollmentDeadline?: string;
+  year?: number;
+  season?: string;
+};
+export type IEvent = {
+  id: number;
+  eventName: string;
+  eventDate: string;
+  sport: ISport;
 };

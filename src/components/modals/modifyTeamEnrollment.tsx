@@ -105,7 +105,7 @@ export default function ModifyEnrollModal({
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
             <p className="font-semibold text-[#1F2937]">
-              Change the sport you are enrolled in
+              Change the sport this student is enrolled in
             </p>
             {/* <p className="text-sm text-[#424550]">
               Your request will be sent out for approval.

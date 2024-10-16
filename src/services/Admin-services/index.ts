@@ -1,4 +1,5 @@
 import {
+  CreateEvent,
   CreateSport,
   EditDto,
   LoginDto,
@@ -23,8 +24,18 @@ export default class AdminServices {
     );
     return response.data;
   }
+  static async getUpcomingEventsBySport(sportId: number) {
+    const response = await HTTPClient.get(
+      `sportevents/get_upcoming_eventsbysport/${sportId}`
+    );
+    return response.data;
+  }
   static async getAllSports() {
     const response = await HTTPClient.get(`/sport/get_all`);
+    return response.data;
+  }
+  static async getAllEvents() {
+    const response = await HTTPClient.get(`/sportevents/get_allevents`);
     return response.data;
   }
   static async CreateUser(data: SignUpDto) {
@@ -35,8 +46,19 @@ export default class AdminServices {
     const response = await HTTPClient.put(`/user/update_user/${id}`, data);
     return response.data;
   }
+  static async editEvent(data: CreateEvent, id: number) {
+    const response = await HTTPClient.put(
+      `/sportevents/update_event/${id}`,
+      data
+    );
+    return response.data;
+  }
   static async CreateSport(data: CreateSport) {
     const response = await HTTPClient.post(`/sport/create_sport`, data);
+    return response.data;
+  }
+  static async CreateEvent(data: CreateEvent) {
+    const response = await HTTPClient.post(`/sportevents/create_event`, data);
     return response.data;
   }
   static async CreateAdminUser(data: SignUpDto) {
@@ -51,8 +73,16 @@ export default class AdminServices {
     const response = await HTTPClient.get(`/users/${id}`);
     return response.data;
   }
+  static async getSingleEvent(id: number) {
+    const response = await HTTPClient.get(`/sportevents/get_event_by_id/${id}`);
+    return response.data;
+  }
   static async deleteSingleUser(id: number) {
     const response = await HTTPClient.delete(`/users/${id}`);
+    return response.data;
+  }
+  static async deleteSingleEvent(id: number) {
+    const response = await HTTPClient.delete(`/sportevents/delete_event/${id}`);
     return response.data;
   }
   static async deleteSport(id: number) {
