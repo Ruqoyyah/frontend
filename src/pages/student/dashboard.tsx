@@ -89,7 +89,7 @@ export default function IndividualStudent() {
                 </p>
                 <p className="text-[#ADB8CC] text-sm">{student?.email}</p>
               </div>
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <svg
                     width="44"
@@ -138,15 +138,15 @@ export default function IndividualStudent() {
                     <p className="text-sm font-semibold text-[#3F4254]">
                       Performance
                     </p>
-                    {/* <p className="text-sm font-semibold text-[#B5B5C3] ">
+                    <p className="text-sm font-semibold text-[#B5B5C3] ">
                       Successful Fellas
-                    </p> */}
+                    </p>
                   </div>
                 </div>
                 <div className="w-fit h-fit px-3 py-1 rounded-lg bg-[#C9F7F5] text-sm text-[#1BC5BD] font-semibold">
                   6
                 </div>
-              </div>
+              </div> */}
               {/* <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <svg

@@ -38,6 +38,14 @@ export default class AdminServices {
     const response = await HTTPClient.get(`/sportevents/get_allevents`);
     return response.data;
   }
+  static async getAllUpcomingEvents() {
+    const response = await HTTPClient.get(`/sportevents/get_upcoming_events`);
+    return response.data;
+  }
+  static async getAllPastEvents() {
+    const response = await HTTPClient.get(`/sportevents/get_past_events`);
+    return response.data;
+  }
   static async CreateUser(data: SignUpDto) {
     const response = await HTTPClient.post(`/user/create_student`, data);
     return response.data;
@@ -51,6 +59,10 @@ export default class AdminServices {
       `/sportevents/update_event/${id}`,
       data
     );
+    return response.data;
+  }
+  static async editSport(data: CreateSport, id: number) {
+    const response = await HTTPClient.put(`/sport/update_sport/${id}`, data);
     return response.data;
   }
   static async CreateSport(data: CreateSport) {

@@ -11,7 +11,7 @@ import { MdAdd } from "react-icons/md";
 
 export default function Events() {
   const [events, setevents] = useState<IEvent[]>([]);
-
+  const [view, setView] = useState<string>("all");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const toast = useToast();
@@ -35,9 +35,55 @@ export default function Events() {
       console.log(error, "mav");
     }
   };
+  const getallUpcomingEvents = async () => {
+    try {
+      const res = await AdminServices.getAllUpcomingEvents();
+      if (res.statusCode == "OK") {
+        setevents(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  const getallPastEvents = async () => {
+    try {
+      const res = await AdminServices.getAllPastEvents();
+      if (res.statusCode == "OK") {
+        setevents(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
   useEffect(() => {
-    getallEvents();
-  }, []);
+    if (view === "all") {
+      getallEvents();
+    } else if (view === "upcoming") {
+      getallUpcomingEvents();
+    } else {
+      getallPastEvents();
+    }
+  }, [view]);
   return (
     <Layout>
       <div className="flex h-full flex-col gap-5 p-5">
@@ -61,11 +107,43 @@ export default function Events() {
         </div>
         <div className=" flex h-full overflow-scroll flex-col gap-7 w-full">
           <div className="w-full bg-white rounded-xl  flex flex-col gap-5">
+            <div className="flex items-center gap-2">
+              <p
+                className={`cursor-pointer  hover:text-black hover:underline underline-offset-8 ${
+                  view == "all"
+                    ? "underline text-black font-semibold"
+                    : "text-[#B5B5C3]"
+                }`}
+                onClick={() => setView("all")}
+              >
+                All
+              </p>
+              <p
+                className={`cursor-pointer  hover:text-black hover:underline underline-offset-8 ${
+                  view == "upcoming"
+                    ? "underline text-black font-semibold"
+                    : "text-[#B5B5C3]"
+                }`}
+                onClick={() => setView("upcoming")}
+              >
+                Upcoming Events
+              </p>
+              <p
+                className={`cursor-pointer  hover:text-black hover:underline underline-offset-8 ${
+                  view == "past"
+                    ? "underline text-black font-semibold"
+                    : "text-[#B5B5C3]"
+                }`}
+                onClick={() => setView("past")}
+              >
+                Past Events
+              </p>
+            </div>
             <div className="w-full flex justify-between items-center">
               <div className="flex flex-col gap-2">
                 <p className="text-xl font-semibold text-black">Event List</p>
                 <p className="text-sm text-[#B5B5C3] font-semibold ">
-                  {events.length} sport{events.length > 1 ? "s" : ""}{" "}
+                  {events.length} event{events.length > 1 ? "s" : ""}{" "}
                 </p>
               </div>
               <div className="flex items-center gap-2 justify-end">

@@ -109,7 +109,7 @@ export default function AddEventModal({ isOpen, onClose }: modalProps) {
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
             <p className="font-semibold text-[#1F2937]">
-              Create a new sport event.
+              Create New Sport Event.
             </p>
             <p className="text-sm text-[#424550]"></p>
           </div>

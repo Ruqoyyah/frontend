@@ -13,7 +13,7 @@ export default function Home() {
           <div className="w-full flex z-40 h-full items-center">
             <div className="flex w-full p-5 lg:w-[50%] z-40 justify-center flex-col gap-5">
               <p className="lg:text-5xl md:text-3xl sm:text-2xl text-xl text-white">
-                Welcome to Sports Enrolment System
+                Welcome to Sports Enrollment System
               </p>
               <p className="text-[#D6D6D670]">
                 Manage student sports activities effortlessly.
@@ -25,7 +25,7 @@ export default function Home() {
                 <FancyButton
                   text="Start Now"
                   onClick={() => {
-                    router.push("/login");
+                    router.push("/admin/signup");
                   }}
                 />
               </div>

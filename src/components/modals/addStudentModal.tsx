@@ -115,7 +115,7 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
       <ModalContent borderRadius={32}>
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
-            <p className="font-semibold text-[#1F2937]">Add a new student</p>
+            <p className="font-semibold text-[#1F2937]">Add New Student</p>
             <p className="text-sm text-[#424550]"></p>
           </div>
         </ModalHeader>

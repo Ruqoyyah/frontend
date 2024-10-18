@@ -107,10 +107,10 @@ export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
       <ModalContent borderRadius={32}>
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
-            <p className="font-semibold text-[#1F2937]">Enroll to a sport</p>
-            <p className="text-sm text-[#424550]">
+            <p className="font-semibold text-[#1F2937]">Enroll to a Sport</p>
+            {/* <p className="text-sm text-[#424550]">
               Your request will be sent out for approval.
-            </p>
+            </p> */}
           </div>
         </ModalHeader>
         <ModalCloseButton />
@@ -127,7 +127,7 @@ export default function EnrollModal({ isOpen, onClose, student }: modalProps) {
                 {sports &&
                   sports.map((item, index) => (
                     <option value={item.id} key={index}>
-                      {item.sportName}
+                      {item.sportName} {item.season},{item.year}
                     </option>
                   ))}
               </Select>

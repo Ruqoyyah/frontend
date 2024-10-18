@@ -46,9 +46,9 @@ export type ISport = {
   sportName: string;
   creationDate: string;
   sportType: string;
-  enrollmentDeadline?: string;
-  year?: number;
-  season?: string;
+  enrollmentDeadline: string;
+  year: number;
+  season: string;
 };
 export type IEvent = {
   id: number;

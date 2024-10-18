@@ -98,6 +98,9 @@ export default function GenSportTable({ currentItems }: adUserTableProp) {
               <Th>NAME</Th>
               <Th>SPORT TYPE</Th>
               <Th>CREATED DATE</Th>
+              <Th>REG.DEADLINE</Th>
+              <Th>SEASON</Th>
+              <Th>ACTION</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -137,6 +140,18 @@ export default function GenSportTable({ currentItems }: adUserTableProp) {
                   {" "}
                   <p className="font-[500]">
                     {getFormattedDate(user?.creationDate)}
+                  </p>
+                </Td>
+                <Td>
+                  {" "}
+                  <p className="font-[500]">
+                    {getFormattedDate(user?.enrollmentDeadline as string)}
+                  </p>
+                </Td>
+                <Td>
+                  {" "}
+                  <p className="font-[500]">
+                    {user?.season}, {user?.year}
                   </p>
                 </Td>
                 <Td>

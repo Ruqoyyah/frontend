@@ -136,64 +136,7 @@ export default function IndividualStudent() {
                 </p>
                 <p className="text-[#ADB8CC] text-sm">{student?.email}</p>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <svg
-                    width="44"
-                    height="44"
-                    viewBox="0 0 44 44"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect width="44" height="44" rx="6" fill="#F3F6F9" />
-                    <rect
-                      opacity="0.3"
-                      x="23.5415"
-                      y="14.1667"
-                      width="3.125"
-                      height="16.6667"
-                      rx="1.5625"
-                      fill="#80808F"
-                    />
-                    <rect
-                      x="18.3335"
-                      y="19.375"
-                      width="3.125"
-                      height="11.4583"
-                      rx="1.5625"
-                      fill="#80808F"
-                    />
-                    <rect
-                      x="28.75"
-                      y="21.4583"
-                      width="3.125"
-                      height="9.375"
-                      rx="1.5625"
-                      fill="#80808F"
-                    />
-                    <rect
-                      x="13.125"
-                      y="23.5417"
-                      width="3.125"
-                      height="7.29167"
-                      rx="1.5625"
-                      fill="#80808F"
-                    />
-                  </svg>
 
-                  <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-[#3F4254]">
-                      Performance
-                    </p>
-                    {/* <p className="text-sm font-semibold text-[#B5B5C3] ">
-                      Successful Fellas
-                    </p> */}
-                  </div>
-                </div>
-                <div className="w-fit h-fit px-3 py-1 rounded-lg bg-[#C9F7F5] text-sm text-[#1BC5BD] font-semibold">
-                  6
-                </div>
-              </div>
               {/* <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <svg

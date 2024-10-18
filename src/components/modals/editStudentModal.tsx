@@ -120,7 +120,7 @@ export default function EditStudentModal({
       <ModalContent borderRadius={32}>
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
-            <p className="font-semibold text-[#1F2937]">Edit student</p>
+            <p className="font-semibold text-[#1F2937]">Edit Student</p>
             <p className="text-sm text-[#424550]"></p>
           </div>
         </ModalHeader>

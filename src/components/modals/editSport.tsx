@@ -1,6 +1,6 @@
 // import { CreateUserDto, IRole } from "@/models/admin.models";
 // import AdminServices from "@/services/Admin-services/admin.services";
-import { CreateSport, SignUpDto } from "@/models/index.model";
+import { CreateSport, ISport, SignUpDto } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import {
   Modal,
@@ -24,8 +24,9 @@ import { MdArrowRight } from "react-icons/md";
 type modalProps = {
   isOpen: boolean;
   onClose: () => void;
+  sport: ISport;
 };
-export default function AddSportModal({ isOpen, onClose }: modalProps) {
+export default function EditSportModal({ isOpen, onClose, sport }: modalProps) {
   const [sportName, setSportName] = useState<string>("");
   const [sportType, setSportType] = useState<string>("");
   const [season, setSeason] = useState<string>("");
@@ -35,7 +36,7 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
 
   const toast = useToast();
   const router = useRouter();
-  const createUser = async () => {
+  const editSport = async (id: number) => {
     if (sportName === "") {
       toast({
         title: "Create",
@@ -90,7 +91,7 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
       season,
     };
     try {
-      const res = await AdminServices.CreateSport(data);
+      const res = await AdminServices.editSport(data, id);
       if (res.statusCode == "OK") {
         toast({
           title: "Create",
@@ -115,13 +116,23 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
     }
   };
 
+  useEffect(() => {
+    if (sport) {
+      setSportName(sport.sportName);
+      setSportType(sport.sportType);
+      setSeason(sport.season as string);
+      setYear(sport.year.toString());
+      setDeadline(sport.enrollmentDeadline);
+    }
+  }, [sport]);
+
   return (
     <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
       <ModalOverlay />
       <ModalContent borderRadius={32}>
         <ModalHeader>
           <div className="flex flex-col gap-1 ">
-            <p className="font-semibold text-[#1F2937]">Add New Sport</p>
+            <p className="font-semibold text-[#1F2937]">Edit Sport</p>
             <p className="text-sm text-[#424550]"></p>
           </div>
         </ModalHeader>
@@ -149,7 +160,7 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
               />
 
               <p className="leading-24  text-sm font-[400]">Year</p>
-              <Select onChange={(e) => setYear(e.target.value)}>
+              <Select value={year} onChange={(e) => setYear(e.target.value)}>
                 <option value="">Select Year</option>
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
@@ -159,7 +170,10 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
                 <option value="2029">2029</option>
               </Select>
               <p className="leading-24  text-sm font-[400]">Sport Type</p>
-              <Select onChange={(e) => setSportType(e.target.value)}>
+              <Select
+                value={sportType}
+                onChange={(e) => setSportType(e.target.value)}
+              >
                 <option value="">Select sport type</option>
                 <option value="TEAM">Team</option>
                 <option value="INDIVIDUAL">Individual</option>
@@ -193,11 +207,11 @@ export default function AddSportModal({ isOpen, onClose }: modalProps) {
             <button
               className="py-2 w-full bg-[#FF9C50] flex justify-center items-center gap-2 text-white font-semibold rounded-lg"
               onClick={() => {
-                createUser();
+                editSport(sport.id);
               }}
             >
               {" "}
-              {loading ? <Spinner /> : "Create"}
+              {loading ? <Spinner /> : "Edit"}
             </button>
           </div>
         </ModalFooter>
