@@ -308,7 +308,7 @@ export default function IndividualSport() {
             <div className="w-[60%] max-h-[300px] p-5 bg-white flex flex flex-col gap-5 rounded-xl shadow-md">
               <p className="">Upcoming Events</p>
               {Events.length > 0 ? (
-                <div className="flex flex-col gap-4">
+                <div className=" flex flex-col gap-4 max-h-[400px] overflow-y-scroll">
                   <p className="text-sm text-[#B5B5C3] font-semibold">
                     Next Event is in {findClosestEvent(Events)} days
                   </p>
