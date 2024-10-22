@@ -5,6 +5,7 @@ import SportTable from "@/components/utils/sportTable";
 import UserTable from "@/components/utils/userTable";
 import { IEvent, ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
+import { findClosestEvent } from "@/utils/cookiemanager";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -69,28 +70,6 @@ export default function IndividualSport() {
     }
   }, [id, sportq]);
 
-  function findClosestEvent(events: IEvent[]): number {
-    const now = new Date();
-    let closestEvent: IEvent | null = null;
-    let minDaysDifference: number | null = null;
-
-    for (const event of events) {
-      const eventDate = new Date(event.eventDate);
-      const timeDifference = eventDate.getTime() - now.getTime();
-      const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-      // If the event is in the future and it's the closest so far, update
-      if (
-        daysDifference >= 0 &&
-        (minDaysDifference === null || daysDifference < minDaysDifference)
-      ) {
-        minDaysDifference = daysDifference;
-        closestEvent = event;
-      }
-    }
-
-    return minDaysDifference !== null ? minDaysDifference : -1;
-  }
   return (
     <Layout>
       <div className="flex w-full h-full flex-row">

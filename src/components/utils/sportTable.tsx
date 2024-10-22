@@ -28,6 +28,7 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
 import GlobalPagination from "./globalPagination";
+import { getFormattedDate } from "./helpers";
 // import GlobalPagination from "../utils/pagination";
 
 type adUserTableProp = {
@@ -82,7 +83,10 @@ export default function SportTable({ currentItems }: adUserTableProp) {
             <Tr>
               <Th>NAME</Th>
               <Th>SPORT TYPE</Th>
-              {/* <Th>STATUS</Th> */}
+              <Th>CREATED DATE</Th>
+              <Th>REG.DEADLINE</Th>
+              <Th>SEASON</Th>
+              {/* <Th>ACTION</Th> */}
             </Tr>
           </Thead>
           <Tbody>
@@ -118,25 +122,24 @@ export default function SportTable({ currentItems }: adUserTableProp) {
                 <Td>
                   <p className="font-[500]">{user?.sportType}</p>
                 </Td>
-                {/* <Td>
-                  <div
-                    className={`flex items-center w-fit h-fit px-3 py-1 rounded-full gap-2 ${
-                      user.status === "Active"
-                        ? "text-[#027A48] bg-[#ECFDF3]"
-                        : "text-[#B54708] bg-[#FFFAEB]"
-                    }`}
-                  >
-                    <div
-                      className={`rounded-full h-[5px] w-[5px] ${
-                        user.status === "Active"
-                          ? "bg-[#027A48]"
-                          : "bg-[#B54708]"
-                      }`}
-                    ></div>
-
-                    <p className="font-[500]">{user?.status}</p>
-                  </div>
-                </Td> */}
+                <Td>
+                  {" "}
+                  <p className="font-[500]">
+                    {getFormattedDate(user?.creationDate)}
+                  </p>
+                </Td>
+                <Td>
+                  {" "}
+                  <p className="font-[500]">
+                    {getFormattedDate(user?.enrollmentDeadline as string)}
+                  </p>
+                </Td>
+                <Td>
+                  {" "}
+                  <p className="font-[500]">
+                    {user?.season}, {user?.year}
+                  </p>
+                </Td>
               </Tr>
             ))}
           </Tbody>

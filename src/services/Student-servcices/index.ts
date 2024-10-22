@@ -25,4 +25,10 @@ export default class StudentServices {
     const response = await HTTPClient.get(`/user/get_user_by_id/${id}`);
     return response.data;
   }
+  static async GetEventsByUserId(id: number) {
+    const response = await HTTPClient.get(
+      `/sportevents/get_event_byuserid/${id}`
+    );
+    return response.data;
+  }
 }

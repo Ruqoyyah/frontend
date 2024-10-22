@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 import axios from "axios";
+import SportTable from "@/components/utils/sportTable";
 
 export default function Sports() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -126,10 +127,7 @@ export default function Sports() {
                 </button> */}
               </div>
             </div>
-            <StudentSportTable
-              currentItems={student?.sport as ISport[]}
-              id={student?.id as number}
-            />
+            <SportTable currentItems={student?.sport as ISport[]} />
             <EnrollModal
               isOpen={isOpen}
               onClose={onClose}

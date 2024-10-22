@@ -1,10 +1,13 @@
 import Layout from "@/components/layout";
 import EnrollModal from "@/components/modals/createUserModal";
+import { getFormattedDate } from "@/components/utils/helpers";
 import SportTable from "@/components/utils/sportTable";
-import { ISport, IUser } from "@/models/index.model";
+import { IEvent, ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import StudentServices from "@/services/Student-servcices";
+import { findClosestEvent } from "@/utils/cookiemanager";
 import { useDisclosure, useToast } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -14,31 +17,34 @@ export default function IndividualStudent() {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [student, setStudent] = useState<IUser>();
-  const [students, setStudents] = useState();
+  const [events, setEvents] = useState<IEvent[]>([]);
   const toast = useToast();
-  const events = [
-    {
-      evname: "Event 1",
-      hosted: "Admin",
-      date: "03 Sep, 4:20PM",
-    },
-    {
-      evname: "Event 2",
-      hosted: "Admin",
-      date: "03 Sep, 4:20PM",
-    },
-    {
-      evname: "Event 3",
-      hosted: "Admin",
-      date: "03 Sep, 4:20PM",
-    },
-  ];
 
   const getStudent = async (id: number) => {
     try {
       const res = await StudentServices.GetUserById(id);
       if (res.statusCode == "OK") {
         setStudent(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  const getStudentEvents = async (id: number) => {
+    try {
+      const res = await StudentServices.GetEventsByUserId(id);
+      if (res.statusCode == "OK") {
+        setEvents(res.data);
       } else {
         // setIsloading(false);
         console.log(res);
@@ -63,6 +69,7 @@ export default function IndividualStudent() {
     // setUser(user);
     if (user) {
       getStudent(user.id);
+      getStudentEvents(user.id);
     }
   }, []);
 
@@ -207,54 +214,72 @@ export default function IndividualStudent() {
                 </div>
               </div>
             </div>
-            {/* <div className="w-[60%] p-5 bg-white flex flex flex-col gap-5 rounded-xl shadow-md">
-              <div className="flex flex-col gap-1">
-                <p className="">Upcoming Events</p>
-                <p className="text-sm text-[#B5B5C3] font-semibold">
-                  Next Event is in 9 days
-                </p>
-              </div>
-              {events?.map((event, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <svg
-                      width="44"
-                      height="44"
-                      viewBox="0 0 44 44"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+            <div className="w-[60%] max-h-[300px] p-5 bg-white flex flex flex-col gap-5 rounded-xl shadow-md">
+              <p className="">Upcoming Events</p>
+              {events.length > 0 ? (
+                <div className="flex flex-col gap-4">
+                  <p className="text-sm text-[#B5B5C3] font-semibold">
+                    Next Event is in {findClosestEvent(events)} days
+                  </p>
+
+                  {events?.map((event, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between"
                     >
-                      <rect width="44" height="44" rx="6" fill="#FFF4DE" />
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M14.3335 12.25C13.7812 12.25 13.3335 12.6977 13.3335 13.25V30.75C13.3335 31.3023 13.7812 31.75 14.3335 31.75H15.5835C16.1358 31.75 16.5835 31.3023 16.5835 30.75V13.25C16.5835 12.6977 16.1358 12.25 15.5835 12.25H14.3335ZM19.7502 12.25C19.1979 12.25 18.7502 12.6977 18.7502 13.25V30.75C18.7502 31.3023 19.1979 31.75 19.7502 31.75H21.0002C21.5524 31.75 22.0002 31.3023 22.0002 30.75V13.25C22.0002 12.6977 21.5524 12.25 21.0002 12.25H19.7502Z"
-                        fill="#FFA800"
-                      />
-                      <rect
-                        opacity="0.3"
-                        x="23.6001"
-                        y="13.2512"
-                        width="3.25"
-                        height="19.5"
-                        rx="1"
-                        transform="rotate(-19 23.6001 13.2512)"
-                        fill="#FFA800"
-                      />
-                    </svg>
-                    <div className="flex flex-col gap-1">
-                      <p className="text-[#3F4254] font-semibold">
-                        {event.evname}
-                      </p>
-                      <p className="text-[#B5B5C3] text-xs font-semibold">
-                        {event.hosted}
+                      <div className="flex items-center gap-2">
+                        <svg
+                          width="44"
+                          height="44"
+                          viewBox="0 0 44 44"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="44" height="44" rx="6" fill="#FFF4DE" />
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M14.3335 12.25C13.7812 12.25 13.3335 12.6977 13.3335 13.25V30.75C13.3335 31.3023 13.7812 31.75 14.3335 31.75H15.5835C16.1358 31.75 16.5835 31.3023 16.5835 30.75V13.25C16.5835 12.6977 16.1358 12.25 15.5835 12.25H14.3335ZM19.7502 12.25C19.1979 12.25 18.7502 12.6977 18.7502 13.25V30.75C18.7502 31.3023 19.1979 31.75 19.7502 31.75H21.0002C21.5524 31.75 22.0002 31.3023 22.0002 30.75V13.25C22.0002 12.6977 21.5524 12.25 21.0002 12.25H19.7502Z"
+                            fill="#FFA800"
+                          />
+                          <rect
+                            opacity="0.3"
+                            x="23.6001"
+                            y="13.2512"
+                            width="3.25"
+                            height="19.5"
+                            rx="1"
+                            transform="rotate(-19 23.6001 13.2512)"
+                            fill="#FFA800"
+                          />
+                        </svg>
+                        <div className="flex flex-col gap-1">
+                          <p className="text-[#3F4254] font-semibold">
+                            {event.eventName}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-sm font-semibold">
+                        {getFormattedDate(event.eventDate)}
                       </p>
                     </div>
-                  </div>
-                  <p className="text-sm font-semibold">{event.date}</p>
+                  ))}
                 </div>
-              ))}
-            </div> */}
+              ) : (
+                <div className="flex flex-col items-center gap-2">
+                  <Image
+                    src={"/img/noEvent.png"}
+                    alt="image"
+                    width={500}
+                    height={500}
+                    className="w-[200px] h-[200px]"
+                  />
+                  <p className="font-[500] text-sm ">
+                    There are no upcoming events for you.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
           <div className="w-full bg-white rounded-xl  flex flex-col gap-5">
             <div className="w-full flex justify-between items-center">
