@@ -4,21 +4,21 @@ import EventTable from "@/components/utils/eventTable";
 
 import { IEvent } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
+import StudentServices from "@/services/Student-servcices";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 
-export default function Events() {
+export default function StudentEvent() {
   const [events, setevents] = useState<IEvent[]>([]);
   const [view, setView] = useState<string>("all");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [searchterm, setSearchTerm] = useState<string>("coacc");
-
+  const [searchterm, setSearchTerm] = useState<string>("");
   const toast = useToast();
-  const getallEvents = async () => {
+  const getStudentEvents = async (id: number) => {
     try {
-      const res = await AdminServices.getAllEvents();
+      const res = await StudentServices.GetEventsByUserId(id);
       if (res.statusCode == "OK") {
         setevents(res.data);
       } else {
@@ -36,9 +36,9 @@ export default function Events() {
       console.log(error, "mav");
     }
   };
-  const getallUpcomingEvents = async () => {
+  const getallUpcomingEvents = async (id: number) => {
     try {
-      const res = await AdminServices.getAllUpcomingEvents();
+      const res = await StudentServices.GetUpcomingEventsByUserId(id);
       if (res.statusCode == "OK") {
         setevents(res.data);
       } else {
@@ -56,9 +56,9 @@ export default function Events() {
       console.log(error, "mav");
     }
   };
-  const getallPastEvents = async () => {
+  const getallPastEvents = async (id: number) => {
     try {
-      const res = await AdminServices.getAllPastEvents();
+      const res = await StudentServices.GetPastEventsByUserId(id);
       if (res.statusCode == "OK") {
         setevents(res.data);
       } else {
@@ -77,14 +77,21 @@ export default function Events() {
     }
   };
   useEffect(() => {
+    const user =
+      typeof window !== undefined
+        ? JSON.parse(localStorage.getItem("currentUser") as string)
+        : null;
     if (view === "all") {
-      getallEvents();
+      getStudentEvents(user.id);
     } else if (view === "upcoming") {
-      getallUpcomingEvents();
+      getallUpcomingEvents(user.id);
     } else {
-      getallPastEvents();
+      getallPastEvents(user.id);
     }
   }, [view]);
+  useEffect(() => {
+    handleSearchEvents(searchterm);
+  }, [searchterm]);
   const handleSearchEvents = (searchTerm: string) => {
     const filtred = events.filter((item) =>
       item.eventName.includes(searchTerm)
@@ -92,9 +99,6 @@ export default function Events() {
     setevents(filtred);
     console.log(filtred, "file");
   };
-  useEffect(() => {
-    handleSearchEvents(searchterm);
-  }, [searchterm]);
   return (
     <Layout>
       <div className="flex h-full flex-col gap-5 p-5">

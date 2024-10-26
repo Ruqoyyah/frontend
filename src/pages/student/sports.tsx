@@ -15,6 +15,9 @@ import SportTable from "@/components/utils/sportTable";
 export default function Sports() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [student, setStudent] = useState<IUser>();
+  const [sport, setSport] = useState<ISport[]>([]);
+  const [searchterm, setSearchTerm] = useState<string>("coacc");
+
   const toast = useToast();
   const getStudent = async (id: number) => {
     try {
@@ -22,6 +25,7 @@ export default function Sports() {
 
       if (res.statusCode == "OK") {
         setStudent(res.data);
+        setSport(res.data.sports);
       } else {
         // setIsloading(false);
         console.log(res);
@@ -40,7 +44,7 @@ export default function Sports() {
 
   useEffect(() => {
     const user =
-      typeof window !== undefined
+      typeof window !== "undefined"
         ? JSON.parse(localStorage.getItem("currentUser") as string)
         : null;
     // setUser(user);
@@ -48,38 +52,15 @@ export default function Sports() {
       getStudent(user.id);
     }
   }, []);
-  const students = [
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-    {
-      name: "Basketball",
-      grade: "A+",
-      nos: 30,
-    },
-  ];
+  useEffect(() => {
+    handleSearchEvents(searchterm);
+  }, [searchterm]);
+
+  const handleSearchEvents = (searchTerm: string) => {
+    const filtred = sport.filter((item) => item.sportName.includes(searchTerm));
+    setSport(filtred);
+    console.log(filtred, "file");
+  };
   return (
     <Layout student>
       <div className="flex h-full flex-col gap-5 p-5">
@@ -113,21 +94,13 @@ export default function Sports() {
                     type="text"
                     className=" text-xs bg-transparent  outline-none"
                     placeholder="Search"
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchterm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
-
-                {/* <button className="w-full h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold">
-                  <MdAdd />
-                  Enroll
-                </button> */}
-                {/* <button className="w-fit h-fit rounded-lg text-xs text-[#A1A5B7] bg-[#F5F8FA] px-5 py-2 flex items-center gap-2 font-semibold">
-                  View all
-                </button> */}
               </div>
             </div>
-            <SportTable currentItems={student?.sport as ISport[]} />
+            <SportTable currentItems={sport as ISport[]} />
             <EnrollModal
               isOpen={isOpen}
               onClose={onClose}

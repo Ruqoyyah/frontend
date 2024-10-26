@@ -11,6 +11,7 @@ import { MdAdd } from "react-icons/md";
 
 export default function Sports() {
   const [sports, setSports] = useState<ISport[]>([]);
+  const [searchterm, setSearchTerm] = useState<string>("coacc");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -38,6 +39,16 @@ export default function Sports() {
   useEffect(() => {
     getallSports();
   }, []);
+  useEffect(() => {
+    handleSearchEvents(searchterm);
+  }, [searchterm]);
+  const handleSearchEvents = (searchTerm: string) => {
+    const filtred = sports.filter((item) =>
+      item.sportName.includes(searchTerm)
+    );
+    setSports(filtred);
+    console.log(filtred, "file");
+  };
   return (
     <Layout>
       <div className="flex h-full flex-col gap-5 p-5">
@@ -75,8 +86,8 @@ export default function Sports() {
                     type="text"
                     className=" text-xs bg-transparent  outline-none"
                     placeholder="Search"
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchterm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
 

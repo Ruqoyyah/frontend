@@ -12,6 +12,8 @@ export default function Students() {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [students, setStudents] = useState<IUser[]>([]);
+  const [searchterm, setSearchTerm] = useState<string>("");
+
   const getallStudents = async () => {
     try {
       const res = await AdminServices.getUserbyType("STUDENT");
@@ -35,6 +37,18 @@ export default function Students() {
   useEffect(() => {
     getallStudents();
   }, []);
+  const handleSearchEvents = (searchTerm: string) => {
+    const filtred = students.filter(
+      (item) =>
+        item.firstname.includes(searchTerm) ||
+        item.lastname.includes(searchTerm)
+    );
+    setStudents(filtred);
+    console.log(filtred, "file");
+  };
+  useEffect(() => {
+    handleSearchEvents(searchterm);
+  }, [searchterm]);
   return (
     <Layout>
       <div className="flex h-full flex-col gap-5 p-5">
@@ -72,8 +86,8 @@ export default function Students() {
                     type="text"
                     className=" text-xs bg-transparent  outline-none"
                     placeholder="Search"
-                    // value={searchTerm}
-                    // onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchterm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
 

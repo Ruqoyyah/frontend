@@ -31,4 +31,16 @@ export default class StudentServices {
     );
     return response.data;
   }
+  static async GetUpcomingEventsByUserId(id: number) {
+    const response = await HTTPClient.get(
+      `/sportevents/get_Upcoming_event_byuserid/${id}`
+    );
+    return response.data;
+  }
+  static async GetPastEventsByUserId(id: number) {
+    const response = await HTTPClient.get(
+      `/sportevents/get_past_event_byuserid/${id}`
+    );
+    return response.data;
+  }
 }

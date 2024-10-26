@@ -129,7 +129,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <div className="flex h-full flex-row">
-        <div className="p-5 flex h-full overflow-scroll flex-col gap-7 w-[70%]">
+        <div className="p-5 flex h-full overflow-scroll flex-col gap-7 w-full">
           <div className="flex flex-col gap-1">
             <p className="text-xl font-semibold">Hello, {user?.firstName}</p>
             <p className="text-sm text-[#B5B5C3]">Welcome back</p>
@@ -196,78 +196,6 @@ export default function Dashboard() {
             </div>
             <UserTable currentItems={students} />
             <AddStudentModal isOpen={isOpen} onClose={onClose} />
-          </div>
-        </div>
-        <div className="h-full bg-[#0B0C0D] w-[30%] noscroll p-5 flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-white">Top Sport</p>
-            </div>
-            <div className="grid grid-cols-2 gap-5">
-              <div className="bg-[#2D2E31] shadow-md rounded-lg p-3 flex flex-col gap-2">
-                <p className="font-semibold text-xl text-white">38</p>
-                <p className="font-semibold text-[#546182] text-sm">
-                  Basket Ball
-                </p>
-              </div>
-              <div className="bg-[#2D2E31] shadow-md rounded-lg p-3 flex flex-col gap-2">
-                <p className="font-semibold text-xl text-white">204</p>
-                <p className="font-semibold text-[#546182] text-sm">
-                  Table Tennis
-                </p>
-              </div>
-              <div className="bg-[#2D2E31] shadow-md rounded-lg p-3 flex flex-col gap-2">
-                <p className="font-semibold text-xl text-white">76</p>
-                <p className="font-semibold text-[#546182] text-sm">Football</p>
-              </div>
-              <div className="bg-[#2D2E31] shadow-md rounded-lg p-3 flex flex-col gap-2">
-                <p className="font-semibold text-xl text-white">9</p>
-                <p className="font-semibold text-[#546182] text-sm">Rugby</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-white">Best Students</p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2 w-full">
-                <div className="w-[20%] bg-[#CBF0F4] rounded-lg h-full"></div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm text-white">Blue Doughnut</p>
-                  <p className="text-sm text-[#546182]">
-                    Study the highway types
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 w-full">
-                <div className="w-[20%] bg-[#CBF0F4] rounded-lg h-full"></div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm text-white">Blue Doughnut</p>
-                  <p className="text-sm text-[#546182]">
-                    Study the highway types
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 w-full">
-                <div className="w-[20%] bg-[#CBF0F4] rounded-lg h-full"></div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm text-white">Blue Doughnut</p>
-                  <p className="text-sm text-[#546182]">
-                    Study the highway types
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 w-full">
-                <div className="w-[20%] bg-[#CBF0F4] rounded-lg h-full"></div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm text-white">Blue Doughnut</p>
-                  <p className="text-sm text-[#546182]">
-                    Study the highway types
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
