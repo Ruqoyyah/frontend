@@ -95,7 +95,7 @@ export default function EditSportModal({ isOpen, onClose, sport }: modalProps) {
       if (res.statusCode == "OK") {
         toast({
           title: "Create",
-          description: "Sport Created",
+          description: "Sport Edited",
           duration: 2000,
           status: "success",
         });

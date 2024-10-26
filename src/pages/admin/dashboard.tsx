@@ -2,7 +2,7 @@ import Layout from "@/components/layout";
 import ClientNavbar from "@/components/layout/navbar";
 import AddStudentModal from "@/components/modals/addStudentModal";
 import UserTable from "@/components/utils/userTable";
-import { ISport, IUser } from "@/models/index.model";
+import { IEvent, ISport, IUser } from "@/models/index.model";
 import AdminServices from "@/services/Admin-services";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import Image from "next/image";
@@ -72,6 +72,8 @@ export default function Dashboard() {
   ];
   const router = useRouter();
   const [sports, setSports] = useState<ISport[]>([]);
+  const [events, setevents] = useState<IEvent[]>([]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [user, setUser] = useState<any>();
@@ -116,6 +118,26 @@ export default function Dashboard() {
       console.log(error, "mav");
     }
   };
+  const getallEvents = async () => {
+    try {
+      const res = await AdminServices.getAllEvents();
+      if (res.statusCode == "OK") {
+        setevents(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
   useEffect(() => {
     const user =
       typeof window !== undefined
@@ -124,6 +146,7 @@ export default function Dashboard() {
     setUser(user);
     getallStudents();
     getallSports();
+    getallEvents();
   }, []);
 
   return (
@@ -164,6 +187,22 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">{sports.length}</p>
+                {/* <p className="text-sm font-bold">+ 28% this week</p> */}
+              </div>
+            </div>
+            <div className="w-full h-[270px] bg-[#F6D9E3] rounded-xl flex flex-col p-5 gap-4">
+              <p className="font-semibold">Events</p>
+              <div className="h-[150px] w-full">
+                <Image
+                  src="/img/students.png"
+                  alt="sports"
+                  width={500}
+                  height={500}
+                  className="h-full"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-2xl font-bold">{events?.length}</p>
                 {/* <p className="text-sm font-bold">+ 28% this week</p> */}
               </div>
             </div>
