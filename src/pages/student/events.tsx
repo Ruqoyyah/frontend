@@ -100,23 +100,14 @@ export default function StudentEvent() {
     console.log(filtred, "file");
   };
   return (
-    <Layout>
+    <Layout student>
       <div className="flex h-full flex-col gap-5 p-5">
         <div className="bg-[#1B283F] rounded-xl">
           <div className="imagebg1 p-5 rounded-xl">
             <div className="flex flex-col gap-7">
               <p className="text-2xl md:w-[30%] font-semibold leading-8 text-white">
-                Manage sport events effortlessly.
+                View sport events effortlessly.
               </p>
-              <button
-                className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold"
-                onClick={() => {
-                  onOpen();
-                }}
-              >
-                <MdAdd />
-                Create Event
-              </button>
             </div>
           </div>
         </div>
