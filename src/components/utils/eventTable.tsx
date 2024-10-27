@@ -97,7 +97,7 @@ export default function EventTable({ currentItems }: adUserTableProp) {
               <Th>NAME</Th>
               <Th>SPORT</Th>
               <Th>DATE</Th>
-              <Th>ACTION</Th>
+              {router.asPath.includes("/admin") && <Th>ACTION</Th>}
             </Tr>
           </Thead>
           <Tbody>
@@ -138,24 +138,26 @@ export default function EventTable({ currentItems }: adUserTableProp) {
                     {getFormattedDate(user.eventDate)}
                   </p>
                 </Td>
-                <Td>
-                  <div className="flex items-center gap-2">
-                    <CiEdit
-                      className=" cursor-pointer"
-                      onClick={() => {
-                        onEditOpen();
-                        setSelectedId(user.id);
-                      }}
-                    />
-                    <FiTrash
-                      className="text-red-600 cursor-pointer"
-                      onClick={() => {
-                        onOpen();
-                        setSelectedId(user.id);
-                      }}
-                    />
-                  </div>
-                </Td>
+                {router.asPath.includes("/admin") && (
+                  <Td>
+                    <div className="flex items-center gap-2">
+                      <CiEdit
+                        className=" cursor-pointer"
+                        onClick={() => {
+                          onEditOpen();
+                          setSelectedId(user.id);
+                        }}
+                      />
+                      <FiTrash
+                        className="text-red-600 cursor-pointer"
+                        onClick={() => {
+                          onOpen();
+                          setSelectedId(user.id);
+                        }}
+                      />
+                    </div>
+                  </Td>
+                )}
               </Tr>
             ))}
           </Tbody>
