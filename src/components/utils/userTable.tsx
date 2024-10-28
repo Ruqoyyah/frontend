@@ -85,7 +85,7 @@ export default function UserTable({ currentItems }: adUserTableProp) {
               <Th>EMAIL</Th>
               <Th>ID</Th>
               <Th>SPORTS </Th>
-              {router.asPath === "/admin/students" && <Th>ACTION </Th>}
+              <Th>ACTION </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -138,9 +138,9 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                     ))}
                   </div>
                 </Td>
-                {router.asPath === "/admin/students" && (
-                  <Td>
-                    <div className="w-full flex items-center justify-between">
+                <Td>
+                  <div className="w-full flex items-center justify-between">
+                    {router.asPath === "/admin/students" && (
                       <BsTrashFill
                         className="z-10  cursor-pointer"
                         onClick={() => {
@@ -148,63 +148,35 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                           onOpen();
                         }}
                       />
-                      {/* <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
+                    )}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       className="cursor-pointer"
+                      onClick={() => {
+                        router.push(`/admin/students/${user.id}`);
+                        // setModifyAlert(!modifyAlert);
+                      }}
                     >
-                      <g clip-path="url(#clip0_2536_463)">
-                        <path
-                          d="M24.1666 12.4999C24.3855 12.2811 24.6453 12.1074 24.9313 11.989C25.2173 11.8705 25.5238 11.8096 25.8333 11.8096C26.1428 11.8096 26.4493 11.8705 26.7353 11.989C27.0213 12.1074 27.2811 12.2811 27.5 12.4999C27.7188 12.7188 27.8924 12.9786 28.0109 13.2646C28.1294 13.5506 28.1903 13.8571 28.1903 14.1666C28.1903 14.4761 28.1294 14.7826 28.0109 15.0686C27.8924 15.3546 27.7188 15.6144 27.5 15.8333L16.25 27.0833L11.6666 28.3333L12.9166 23.7499L24.1666 12.4999Z"
-                          stroke="#667085"
-                          stroke-width="1.66667"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2536_463">
-                          <rect
-                            width="20"
-                            height="20"
-                            fill="white"
-                            transform="translate(10 10)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg> */}
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="cursor-pointer"
-                        onClick={() => {
-                          router.push(`/admin/students/${user.id}`);
-                          // setModifyAlert(!modifyAlert);
-                        }}
-                      >
-                        <rect
-                          x="0.5"
-                          y="0.5"
-                          width="19"
-                          height="19"
-                          rx="3.5"
-                          stroke="#A4AAB2"
-                          strokeOpacity="0.28"
-                        />
-                        <path
-                          d="M7.79992 6.65382L8.45435 6L12.0189 9.5633C12.0763 9.6204 12.1219 9.68829 12.1531 9.76308C12.1842 9.83787 12.2002 9.91807 12.2002 9.99907C12.2002 10.0801 12.1842 10.1603 12.1531 10.2351C12.1219 10.3099 12.0763 10.3778 12.0189 10.4348L8.45435 14L7.80053 13.3462L11.1461 10L7.79992 6.65382Z"
-                          fill="#667085"
-                        />
-                      </svg>
-                    </div>
-                  </Td>
-                )}
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width="19"
+                        height="19"
+                        rx="3.5"
+                        stroke="#A4AAB2"
+                        strokeOpacity="0.28"
+                      />
+                      <path
+                        d="M7.79992 6.65382L8.45435 6L12.0189 9.5633C12.0763 9.6204 12.1219 9.68829 12.1531 9.76308C12.1842 9.83787 12.2002 9.91807 12.2002 9.99907C12.2002 10.0801 12.1842 10.1603 12.1531 10.2351C12.1219 10.3099 12.0763 10.3778 12.0189 10.4348L8.45435 14L7.80053 13.3462L11.1461 10L7.79992 6.65382Z"
+                        fill="#667085"
+                      />
+                    </svg>
+                  </div>
+                </Td>
               </Tr>
             ))}
           </Tbody>
