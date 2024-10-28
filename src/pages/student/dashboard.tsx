@@ -42,7 +42,7 @@ export default function IndividualStudent() {
   };
   const getStudentEvents = async (id: number) => {
     try {
-      const res = await StudentServices.GetEventsByUserId(id);
+      const res = await StudentServices.GetUpcomingEventsByUserId(id);
       if (res.statusCode == "OK") {
         setEvents(res.data);
       } else {
