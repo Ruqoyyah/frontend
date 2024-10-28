@@ -182,7 +182,7 @@ export default function StudentSportTable({
                       </svg>
                     </div>
                     <p className="font-semibold text-[#FF9C50]">
-                      {user?.sportName}
+                      {user?.sportName}, {user?.season} {user?.year}
                     </p>
                   </div>
                 </Td>

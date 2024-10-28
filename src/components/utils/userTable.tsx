@@ -85,7 +85,7 @@ export default function UserTable({ currentItems }: adUserTableProp) {
               <Th>EMAIL</Th>
               <Th>ID</Th>
               <Th>SPORTS </Th>
-              <Th>ACTION </Th>
+              {router.asPath === "/admin/students" && <Th>ACTION </Th>}
             </Tr>
           </Thead>
           <Tbody>
@@ -131,21 +131,24 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                         className="w-fit h-fit rounded-full px-2 py-1 text-xs bg-[#F9F5FF] text-[#6941C6]"
                         key={index}
                       >
-                        <p>{item.sportName}</p>
+                        <p>
+                          {item.sportName}, {item.season}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </Td>
-                <Td>
-                  <div className="w-full flex items-center justify-between">
-                    <BsTrashFill
-                      className="z-10  cursor-pointer"
-                      onClick={() => {
-                        setSelectedId(user?.id);
-                        onOpen();
-                      }}
-                    />
-                    {/* <svg
+                {router.asPath === "/admin/students" && (
+                  <Td>
+                    <div className="w-full flex items-center justify-between">
+                      <BsTrashFill
+                        className="z-10  cursor-pointer"
+                        onClick={() => {
+                          setSelectedId(user?.id);
+                          onOpen();
+                        }}
+                      />
+                      {/* <svg
                       width="40"
                       height="40"
                       viewBox="0 0 40 40"
@@ -173,34 +176,35 @@ export default function UserTable({ currentItems }: adUserTableProp) {
                         </clipPath>
                       </defs>
                     </svg> */}
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="cursor-pointer"
-                      onClick={() => {
-                        router.push(`/admin/students/${user.id}`);
-                        // setModifyAlert(!modifyAlert);
-                      }}
-                    >
-                      <rect
-                        x="0.5"
-                        y="0.5"
-                        width="19"
-                        height="19"
-                        rx="3.5"
-                        stroke="#A4AAB2"
-                        strokeOpacity="0.28"
-                      />
-                      <path
-                        d="M7.79992 6.65382L8.45435 6L12.0189 9.5633C12.0763 9.6204 12.1219 9.68829 12.1531 9.76308C12.1842 9.83787 12.2002 9.91807 12.2002 9.99907C12.2002 10.0801 12.1842 10.1603 12.1531 10.2351C12.1219 10.3099 12.0763 10.3778 12.0189 10.4348L8.45435 14L7.80053 13.3462L11.1461 10L7.79992 6.65382Z"
-                        fill="#667085"
-                      />
-                    </svg>
-                  </div>
-                </Td>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="cursor-pointer"
+                        onClick={() => {
+                          router.push(`/admin/students/${user.id}`);
+                          // setModifyAlert(!modifyAlert);
+                        }}
+                      >
+                        <rect
+                          x="0.5"
+                          y="0.5"
+                          width="19"
+                          height="19"
+                          rx="3.5"
+                          stroke="#A4AAB2"
+                          strokeOpacity="0.28"
+                        />
+                        <path
+                          d="M7.79992 6.65382L8.45435 6L12.0189 9.5633C12.0763 9.6204 12.1219 9.68829 12.1531 9.76308C12.1842 9.83787 12.2002 9.91807 12.2002 9.99907C12.2002 10.0801 12.1842 10.1603 12.1531 10.2351C12.1219 10.3099 12.0763 10.3778 12.0189 10.4348L8.45435 14L7.80053 13.3462L11.1461 10L7.79992 6.65382Z"
+                          fill="#667085"
+                        />
+                      </svg>
+                    </div>
+                  </Td>
+                )}
               </Tr>
             ))}
           </Tbody>
