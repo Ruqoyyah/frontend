@@ -47,15 +47,7 @@ export default function AddCoachModal({ isOpen, onClose }: modalProps) {
       });
       return;
     }
-    if (regno === "") {
-      toast({
-        title: "Create",
-        description: "Please Enter a valid Registration number",
-        duration: 2000,
-        status: "error",
-      });
-      return;
-    }
+
     if (username === "") {
       toast({
         title: "Create",

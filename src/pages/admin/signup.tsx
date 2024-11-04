@@ -42,15 +42,7 @@ export default function SignupAdmin() {
       });
       return;
     }
-    if (regno === "") {
-      toast({
-        title: "Create",
-        description: "Please Enter a valid Registration number",
-        duration: 2000,
-        status: "error",
-      });
-      return;
-    }
+
     if (lastname === "") {
       toast({
         title: "Create",
