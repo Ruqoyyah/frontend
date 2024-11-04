@@ -24,6 +24,12 @@ export default class AdminServices {
     );
     return response.data;
   }
+  static async getUsersbbCoachSportId(sportId: number) {
+    const response = await HTTPClient.get(
+      `/user/get_user_by_sportid_coach/${sportId}`
+    );
+    return response.data;
+  }
   static async getUpcomingEventsBySport(sportId: number) {
     const response = await HTTPClient.get(
       `sportevents/get_upcoming_eventsbysport/${sportId}`

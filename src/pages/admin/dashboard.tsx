@@ -78,11 +78,32 @@ export default function Dashboard() {
   const toast = useToast();
   const [user, setUser] = useState<any>();
   const [students, setStudents] = useState<IUser[]>([]);
+  const [coaches, setCoaches] = useState<IUser[]>([]);
   const getallStudents = async () => {
     try {
       const res = await AdminServices.getUserbyType("STUDENT");
       if (res.statusCode == "OK") {
         setStudents(res.data);
+      } else {
+        // setIsloading(false);
+        console.log(res);
+      }
+    } catch (error: any) {
+      // setIsloading(false);
+      toast({
+        title: "Error",
+        description: `${error.response.data.message}`,
+        duration: 2000,
+        status: "error",
+      });
+      console.log(error, "mav");
+    }
+  };
+  const getallCoaches = async () => {
+    try {
+      const res = await AdminServices.getUserbyType("COACH");
+      if (res.statusCode == "OK") {
+        setCoaches(res.data);
       } else {
         // setIsloading(false);
         console.log(res);
@@ -145,6 +166,7 @@ export default function Dashboard() {
         : null;
     setUser(user);
     getallStudents();
+    getallCoaches();
     getallSports();
     getallEvents();
   }, []);
@@ -203,6 +225,22 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">{events?.length}</p>
+                {/* <p className="text-sm font-bold">+ 28% this week</p> */}
+              </div>
+            </div>
+            <div className="w-full h-[270px] bg-[#CBF0F4] rounded-xl flex flex-col p-5 gap-4">
+              <p className="font-semibold">Coaches</p>
+              <div className="h-[150px] w-full">
+                <Image
+                  src="/img/sports.png"
+                  alt="sports"
+                  width={500}
+                  height={500}
+                  className="h-full"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-2xl font-bold">{coaches.length}</p>
                 {/* <p className="text-sm font-bold">+ 28% this week</p> */}
               </div>
             </div>

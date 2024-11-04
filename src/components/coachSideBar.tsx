@@ -53,7 +53,7 @@ export default function CoachSidebar() {
               {" "}
               {user?.firstName} {user?.lastName}
             </p>
-            <p className=" text-xs text-[#83899F]">Student</p>
+            <p className=" text-xs text-[#83899F]">Coach</p>
           </div>
         </div>
         <div

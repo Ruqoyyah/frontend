@@ -85,7 +85,9 @@ export default function Coach() {
           <div className="w-full bg-white rounded-xl  flex flex-col gap-5">
             <div className="w-full flex justify-between items-center">
               <div className="flex flex-col gap-2">
-                <p className="text-xl font-semibold text-black">Sport List</p>
+                <p className="text-xl font-semibold text-black">
+                  Sport Enrolled
+                </p>
                 <p className="text-sm text-[#B5B5C3] font-semibold "></p>
               </div>
               <div className="flex items-center gap-2 justify-end">

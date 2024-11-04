@@ -24,7 +24,7 @@ export default function IndividualSport() {
   const [Events, setEvents] = useState<IEvent[]>([]);
   const getallStudents = async (id: number) => {
     try {
-      const res = await AdminServices.getUserbySport(id);
+      const res = await AdminServices.getUsersbbCoachSportId(id);
       if (res.statusCode == "OK") {
         setStudents(res.data);
       } else {

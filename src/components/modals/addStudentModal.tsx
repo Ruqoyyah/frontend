@@ -47,6 +47,15 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
       });
       return;
     }
+    if (regno === "") {
+      toast({
+        title: "Create",
+        description: "Please Enter a valid Registration number",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
     if (lastname === "") {
       toast({
         title: "Create",
@@ -74,6 +83,15 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
       });
       return;
     }
+    if (username === "") {
+      toast({
+        title: "Create",
+        description: "Please Enter a username",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
     setIsloading(true);
     let data: SignUpDto = {
       firstname,
@@ -85,7 +103,7 @@ export default function AddStudentModal({ isOpen, onClose }: modalProps) {
     };
     try {
       const res = await AdminServices.CreateUser(data);
-      if (res.statusCode == "OK") {
+      if (res.statusCode == "CREATED") {
         toast({
           title: "Create",
           description: "Student Created",

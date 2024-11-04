@@ -35,8 +35,17 @@ export default function SignupAdmin() {
   const createUser = async () => {
     if (firstname === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid firstname",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    if (regno === "") {
+      toast({
+        title: "Create",
+        description: "Please Enter a valid Registration number",
         duration: 2000,
         status: "error",
       });
@@ -44,7 +53,7 @@ export default function SignupAdmin() {
     }
     if (lastname === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid lastname",
         duration: 2000,
         status: "error",
@@ -53,7 +62,7 @@ export default function SignupAdmin() {
     }
     if (email === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a valid email address",
         duration: 2000,
         status: "error",
@@ -62,8 +71,17 @@ export default function SignupAdmin() {
     }
     if (password === "") {
       toast({
-        title: "Authentication",
+        title: "Create",
         description: "Please Enter a password",
+        duration: 2000,
+        status: "error",
+      });
+      return;
+    }
+    if (username === "") {
+      toast({
+        title: "Create",
+        description: "Please Enter a username",
         duration: 2000,
         status: "error",
       });
@@ -80,7 +98,7 @@ export default function SignupAdmin() {
     };
     try {
       const res = await AdminServices.CreateAdminUser(data);
-      if (res.statusCode == "OK") {
+      if (res.statusCode == "CREATED") {
         const data2: LoginDto = {
           email,
           password,
