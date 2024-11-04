@@ -50,6 +50,10 @@ export default class AdminServices {
     const response = await HTTPClient.post(`/user/create_student`, data);
     return response.data;
   }
+  static async CreateCoach(data: SignUpDto) {
+    const response = await HTTPClient.post(`/user/create_coach`, data);
+    return response.data;
+  }
   static async editUser(data: EditDto, id: number) {
     const response = await HTTPClient.put(`/user/update_user/${id}`, data);
     return response.data;

@@ -69,8 +69,10 @@ export default function Login() {
         });
         if (rest.userType === "SUPER_ADMIN") {
           router.push("/admin/dashboard");
-        } else {
+        } else if (rest.userType === "STUDENT") {
           router.push("/student/dashboard");
+        } else {
+          router.push("/coach");
         }
       } else {
         setIsloading(false);

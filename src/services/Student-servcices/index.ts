@@ -8,6 +8,13 @@ export default class StudentServices {
     );
     return response.data;
   }
+  static async EnrollCoachSport(userId: number, sportId: number) {
+    const response = await HTTPClient.put(
+      `/user/update_coach_with_sport/${userId}/${sportId}`,
+      undefined
+    );
+    return response.data;
+  }
   static async ModifyUserSport(userId: number, sportId: number) {
     const response = await HTTPClient.put(
       `/user/update_user/${userId}/${sportId}`,

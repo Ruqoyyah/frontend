@@ -100,7 +100,7 @@ export default function StudentEvent() {
     console.log(filtred, "file");
   };
   return (
-    <Layout student>
+    <Layout student="student">
       <div className="flex h-full flex-col gap-5 p-5">
         <div className="bg-[#1B283F] rounded-xl">
           <div className="imagebg1 p-5 rounded-xl">

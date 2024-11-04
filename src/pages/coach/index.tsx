@@ -11,8 +11,9 @@ import { BiSearch } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 import axios from "axios";
 import SportTable from "@/components/utils/sportTable";
+import EnrollCoachModal from "@/components/modals/enrollCoach";
 
-export default function Sports() {
+export default function Coach() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [student, setStudent] = useState<IUser>();
   const [sport, setSport] = useState<ISport[]>([]);
@@ -25,7 +26,7 @@ export default function Sports() {
 
       if (res.statusCode == "OK") {
         setStudent(res.data);
-        setSport(res.data.sports);
+        setSport(res.data.sport);
       } else {
         // setIsloading(false);
         console.log(res);
@@ -62,20 +63,20 @@ export default function Sports() {
     console.log(filtred, "file");
   };
   return (
-    <Layout student="student">
+    <Layout student="coach">
       <div className="flex h-full flex-col gap-5 p-5">
         <div className="bg-[#1B283F] rounded-xl">
           <div className="imagebg1 p-5 rounded-xl">
             <div className="flex flex-col gap-7">
-              <p className="text-2xl md:w-[30%] font-semibold leading-8 text-white">
+              {/* <p className="text-2xl md:w-[30%] font-semibold leading-8 text-white">
                 Manage your sports activities effortlessly.
-              </p>
+              </p> */}
               <button
                 className="w-fit h-fit rounded-lg text-xs text-white bg-[#FF9C50] px-5 py-2 flex items-center gap-2 font-semibold"
                 onClick={onOpen}
               >
                 <MdAdd />
-                Enroll
+                Enroll to a sport
               </button>
             </div>
           </div>
@@ -101,7 +102,7 @@ export default function Sports() {
               </div>
             </div>
             <SportTable currentItems={sport as ISport[]} />
-            <EnrollModal
+            <EnrollCoachModal
               isOpen={isOpen}
               onClose={onClose}
               student={student as IUser}
