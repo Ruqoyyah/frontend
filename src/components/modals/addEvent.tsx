@@ -141,7 +141,8 @@ export default function AddEventModal({ isOpen, onClose }: modalProps) {
                 <option value="">Select sport</option>
                 {sports.map((item, index) => (
                   <option key={index} value={item.id}>
-                    {item.sportName}
+                    {item.sportName},{item.season}
+                    {item.year}
                   </option>
                 ))}
               </Select>
